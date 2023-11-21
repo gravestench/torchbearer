@@ -13,6 +13,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Human,
 			Class: models.ClassWarrior,
+			Nature: models.Nature{
+				Name:        "Human",
+				Descriptors: []string{"Boasting", "Demanding", "Running"},
+			},
 			Description: "Mercenaries, soldiers, defenders, marauders — warriors have been a part of civilization " +
 				"since its birth. Warriors are comfortable in armor and handy with every type of weapon. They can " +
 				"grow into great commanders or cunning combatants.",
@@ -177,6 +181,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Human,
 			Class: models.ClassTheurge,
+			Nature: models.Nature{
+				Name:        "Human",
+				Descriptors: []string{"Boasting", "Demanding", "Running"},
+			},
 			Description: "Theurges are possessed by a shard of Immortal power. This possession allows them to " +
 				"invoke powers beyond the capabilities of other mortals, but such power carries with it terrible " +
 				"consequences.",
@@ -336,6 +344,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Human,
 			Class: models.ClassMagician,
+			Nature: models.Nature{
+				Name:        "Human",
+				Descriptors: []string{"Boasting", "Demanding", "Running"},
+			},
 			Description: "Magicians have tapped into a special part of themselves called the memory palace. This " +
 				"part of their mind allows them to capture and store magical spells and release them upon command. " +
 				"This art is called arcanism, and it is a dangerous road to travel.",
@@ -510,6 +522,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Dwarf,
 			Class: models.ClassOutcast,
+			Nature: models.Nature{
+				Name:        "Dwarf",
+				Descriptors: []string{"Delving", "Crafting", "Avenging Grudges"},
+			},
 			Description: "These are dwarves who could not tolerate the rigid life in the holds and halls of their " +
 				"ancestors. Tough and resourceful, outcasts can grow into mighty heroes or greed - mad tyrants.",
 			LevelBenefits: [][]models.Benefit{
@@ -669,6 +685,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Elf,
 			Class: models.ClassRanger,
+			Nature: models.Nature{
+				Name:        "Elf",
+				Descriptors: []string{"Singing", "Remembering", "Hiding"},
+			},
 			Description: "The elves spend ages wandering the dreamlands, pondering the greater mysteries of life. " +
 				"Rangers are those few elves who awake from their slumber and find themselves unable to return to " +
 				"sleep. Forced to wander wakeful, rangers manifest the spell songs of their people, growing more " +
@@ -852,6 +872,10 @@ func (s *Service) initStockTable() StockRecords {
 		{
 			Race:  models.Halfling,
 			Class: models.ClassBurglar,
+			Nature: models.Nature{
+				Name:        "Halfling",
+				Descriptors: []string{"Sneaking", "Riddling", "Merrymaking"},
+			},
 			Description: "Halflings simply aren’t adventurers. It’s just not done. I mean, how can one eat second " +
 				"breakfast during an adventure? However, should the unthinkable happen, halfling adventurers make " +
 				"excellent burglars. They’re oft underestimated by their companions, but they possess deep wells of " +

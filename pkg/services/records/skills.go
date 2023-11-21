@@ -4,17 +4,29 @@ import (
 	"torchbearer/pkg/models"
 )
 
+type SkillRecords map[string]models.Record
+
+func (st SkillRecords) AddSkill(s models.Record) {
+	st[s.Name] = s
+}
+
+func (st SkillRecords) GetSkillByName(name string) (models.Record, bool) {
+	skill, exists := st[name]
+
+	return skill, exists
+}
+
 func (s *Service) defaultSkillTable() SkillRecords {
 	table := make(SkillRecords)
 
-	for _, skill := range []models.SkillRecord{
+	for _, skill := range []models.Record{
 		{
 			Name: "Beggar",
 			Description: "Beggars are seen as worthless and talentless " +
 				"by rich fools and impudent snobs, but any who have lived on " +
 				"the streets understand that it takes real wits, skill and " +
 				"luck to survive. Certainly a lot more than those daffodils " +
-				"have.\nUse the Beggar skill to ply your trade on the " +
+				"have. Use the Beggar skill to ply your trade on the " +
 				"streets of towns and cities, appealing to the generosity, " +
 				"pity or disgust of passersby to gain free food, drink or " +
 				"lodging. Note that in some places, use of this skill is a " +
@@ -1100,16 +1112,4 @@ func (s *Service) defaultSkillTable() SkillRecords {
 	}
 
 	return table
-}
-
-type SkillRecords map[string]models.SkillRecord
-
-func (st SkillRecords) AddSkill(s models.SkillRecord) {
-	st[s.Name] = s
-}
-
-func (st SkillRecords) GetSkillByName(name string) (models.SkillRecord, bool) {
-	skill, exists := st[name]
-
-	return skill, exists
 }

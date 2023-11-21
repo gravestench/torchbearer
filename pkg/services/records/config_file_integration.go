@@ -10,15 +10,22 @@ func (s *Service) initConfigFiles() {
 	s.initSkillRecordsConfig()
 	s.initStockRecordConfig()
 	s.initTraitRecordConfig()
+	s.initWisesRecordConfig()
 }
 
 func (s *Service) ConfigFileNames() []string {
-	return []string{cfgFileNameSkillRecords, cfgFileNameStockRecords, cfgFileNameTraitRecords}
+	return []string{
+		cfgFileNameSkillRecords,
+		cfgFileNameStockRecords,
+		cfgFileNameTraitRecords,
+		cfgFileNameWiseRecords,
+	}
 }
 
 const (
 	cfgFileNameSkillRecords = "records.skills.json"
 
+	keySkillName          = "Name"
 	keySkillDescription   = "Description"
 	keySkillBeginnersLuck = "Beginners Luck Ability"
 	keySkillTools         = "Tools"
@@ -42,6 +49,7 @@ func (s *Service) initSkillRecordsConfig() {
 	for _, skill := range defaults {
 		g := cfg.Group(skill.Name)
 
+		g.Set(keySkillName, skill.Name)
 		g.Set(keySkillDescription, skill.Description)
 		g.Set(keySkillBeginnersLuck, skill.BeginnersLuck)
 		g.Set(keySkillTools, skill.Tools)
@@ -57,10 +65,11 @@ func (s *Service) initSkillRecordsConfig() {
 
 	// iterate through the config, with defaults and any custom stuff
 	for _, name := range cfg.GroupKeys() {
-		var skill models.SkillRecord
+		var skill models.Record
 
 		g := cfg.Group(name)
 
+		skill.Name = name
 		skill.Description = g.GetString(keySkillDescription)
 		skill.BeginnersLuck = g.GetString(keySkillBeginnersLuck)
 		skill.Tools = g.GetStrings(keySkillTools)
@@ -163,5 +172,45 @@ func (s *Service) initTraitRecordConfig() {
 		trait.Description = g.GetString(keyTraitDescription)
 
 		s.TraitRecords[name] = trait
+	}
+}
+
+const (
+	cfgFileNameWiseRecords = "records.wise.json"
+	keyWiseDescription     = "Description"
+)
+
+func (s *Service) initWisesRecordConfig() {
+	// load or create the config
+	cfg, err := s.cfgManager.GetConfigByFileName(cfgFileNameWiseRecords)
+	if err != nil {
+		cfg, err = s.cfgManager.CreateConfigWithFileName(cfgFileNameWiseRecords)
+		if err != nil {
+			s.logger.Fatal().Msgf("creating stock records config file: %v", err)
+		}
+	}
+
+	// ensure the defaults are used
+	defaults := s.initWisesTable()
+	for _, wise := range defaults {
+		g := cfg.Group(wise.Name)
+		g.Set(keyWiseDescription, wise.Description)
+	}
+
+	// save the config (ensure to overwrite changes to the defaults)
+	if err = s.cfgManager.SaveConfigWithFileName(cfgFileNameWiseRecords); err != nil {
+		s.logger.Fatal().Msgf("saving config %q: %v", cfgFileNameWiseRecords, err)
+	}
+
+	// iterate through the config, with defaults and any custom stuff
+	for _, name := range cfg.GroupKeys() {
+		var wise models.WiseRecord
+
+		g := cfg.Group(name)
+
+		wise.Name = name
+		wise.Description = g.GetString(keyWiseDescription)
+
+		s.WisesRecords[name] = wise
 	}
 }

@@ -92,6 +92,13 @@ func (s *Service) initTraitTable() TraitRecords {
 				"dead foolhardy adventurers.",
 		},
 		{
+			Name: "Foolhardy",
+			Description: "There are some folks who are always going where they shouldn’t and doing what they mustn’t " +
+				"- sticking their heads in holes or reading strange, eldritch texts. Remarkably, some manage to " +
+				"skirt the consequences of their actions. But that may be because few people write stories about " +
+				"dead foolhardy adventurers.",
+		},
+		{
 			Name: "Generous",
 			Description: "Generous souls always seem to have something to give to others, even if it means going " +
 				"without themselves.",
