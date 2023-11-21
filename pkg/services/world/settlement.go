@@ -5,7 +5,7 @@ import (
 )
 
 // Generate a random fantasy name
-func (s *Service) generateNewSettlementName() string {
+func (w *World) generateNewSettlementName() string {
 	var syllables = []string{
 		"br", "en", "val", "mir", "step", "pe", "ka", "ro", "th", "ran", "dor", "wyn", "sta", "tu", "sha",
 		"al", "un", "la", "er", "zor", "qu", "str", "xi", "tri", "pyr", "ge", "li", "ma", "o", "pe", "or",
@@ -18,7 +18,7 @@ func (s *Service) generateNewSettlementName() string {
 	}
 
 	name := ""
-	syllableCount := rand.Intn(2) + 2 // Generate 2-3 syllable names
+	syllableCount := w.rng.Intn(2) + 2 // Generate 2-3 syllable names
 
 	for i := 0; i < syllableCount; i++ {
 		syllable := syllables[rand.Intn(len(syllables))]

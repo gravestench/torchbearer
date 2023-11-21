@@ -7,6 +7,8 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+
+	"torchbearer/pkg/models"
 )
 
 type tuiWorldView struct {
@@ -61,7 +63,7 @@ func (t *tuiWorldView) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (t *tuiWorldView) View() string {
 	if t.input.settlement.view {
-		t.settlementView.Settlement = &t.World.Settlements[t.input.settlement.index]
+		t.settlementView.Settlement = t.World.Settlements[t.input.settlement.index]
 		return t.settlementView.View()
 	}
 
@@ -83,7 +85,11 @@ func (t *tuiWorldView) headerLine() (output string) {
 }
 
 func (t *tuiWorldView) viewContent() string {
-	return lipgloss.JoinHorizontal(lipgloss.Top, t.viewColumnStats(), t.viewColumnSettlements())
+	selectedSettlement := t.World.Settlements[t.input.settlement.index]
+	return lipgloss.JoinHorizontal(lipgloss.Top,
+		t.viewColumnStats(),
+		t.viewColumnSettlements(),
+		t.viewColumnSettlementDescription(selectedSettlement))
 }
 
 func (t *tuiWorldView) viewColumnStats() string {
@@ -129,6 +135,25 @@ func (t *tuiWorldView) viewColumnSettlements() string {
 	body := lipgloss.JoinVertical(lipgloss.Left, settlementLines...)
 
 	return lipgloss.JoinVertical(lipgloss.Center, title, body)
+}
+
+func (t *tuiWorldView) viewColumnSettlementDescription(settlement *models.Settlement) string {
+	titleColor := lipgloss.Color("#9a9a9a")
+
+	styleTitle := lipgloss.NewStyle().
+		Align(lipgloss.Center).
+		Padding(0, 1).
+		Underline(true).
+		Foreground(titleColor)
+
+	styleDescription := lipgloss.NewStyle().
+		Align(lipgloss.Center).
+		Padding(0, 1).
+		Width(40)
+
+	desc := settlement.Description()
+
+	return lipgloss.JoinVertical(lipgloss.Center, styleTitle.Render("Description"), styleDescription.Render(desc))
 }
 
 //func (t *tuiWorldView) viewColumnGovernments() string {

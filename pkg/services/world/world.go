@@ -2,31 +2,30 @@ package world
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/google/uuid"
 
 	"torchbearer/pkg/models"
 )
 
-const (
-	keyWorldName        = "Name"
-	keyWorldSettlements = "Settlements"
-	keyWorldStats       = "Stats"
-)
-
 type World struct {
-	uuid.UUID
-	*Service
+	UUID        uuid.UUID
 	Name        string
-	Settlements []models.Settlement
+	Seed        int64
+	AsciiMap    string
+	rng         *rand.Rand
+	Settlements []*models.Settlement
 	Stats       struct {
 		SessionsPlayed int
 		TestsRolled    int
 	}
+	*Service `json:"-"`
 }
 
 func (s *Service) NewWorld(name string) (*World, error) {
-	if existing, _ := s.GetWorld(name); existing != nil {
+	if existing, _ := s.GetWorldByName(name); existing != nil {
 		return nil, fmt.Errorf("world with name %q already exists", name)
 	}
 
@@ -34,9 +33,13 @@ func (s *Service) NewWorld(name string) (*World, error) {
 		Service: s,
 		UUID:    uuid.New(),
 		Name:    name,
+		Seed:    time.Now().UnixNano(),
 	}
 
-	s.generateNewWorldSettlements(w)
+	w.rng = rand.New(rand.NewSource(w.Seed))
+
+	w.generateNewWorldSettlements()
+	w.generateAsciiMap()
 
 	return w, nil
 }
@@ -58,7 +61,7 @@ func (s *Service) AddWorld(w World) {
 	s.Worlds = append(s.Worlds, &w)
 }
 
-func (s *Service) GetWorld(name string) (*World, error) {
+func (s *Service) GetWorldByName(name string) (*World, error) {
 	for _, world := range s.Worlds {
 		if world.Name != name {
 			continue
@@ -82,6 +85,7 @@ func (s *Service) DeleteWorld(name string) error {
 			return fmt.Errorf("getting world config: %v", err)
 		} else {
 			cfg.Delete(world.UUID.String())
+			s.cfgManager.SaveConfigWithFileName(s.ConfigFileName())
 		}
 
 		return nil

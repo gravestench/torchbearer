@@ -1,14 +1,26 @@
 package world
 
 import (
-	"math/rand"
+	"fmt"
 	"slices"
+
+	"github.com/google/uuid"
 
 	"torchbearer/pkg/models"
 )
 
+func (w *World) GetSettlementByName(name string) (*models.Settlement, error) {
+	for _, settlement := range w.Settlements {
+		if settlement.Name == name {
+			return settlement, nil
+		}
+	}
+
+	return nil, fmt.Errorf("settlement %q not found", name)
+}
+
 // when initially creating a new world, we need to create settlements
-func (s *Service) generateNewWorldSettlements(w *World) {
+func (w *World) generateNewWorldSettlements() {
 	for _, t := range []models.SettlementType{
 		models.SettlementBorderlandFortress,
 		models.SettlementBustlingMetropolis,
@@ -25,55 +37,176 @@ func (s *Service) generateNewWorldSettlements(w *World) {
 		models.SettlementWalledTown,
 		models.SettlementWizardsTower,
 	} {
-		var settlement models.Settlement
+		settlement := &models.Settlement{
+			UUID: uuid.New(),
+		}
 
-		settlement.Name = s.generateNewSettlementName()
+		settlement.Name = w.generateNewSettlementName()
+		settlement.Seed = w.Seed + models.GenerateSeedFromString(settlement.Name)
 		settlement.Type = t
-		settlement.Facilities = s.generateNewSettlementFacilities(t)
-		settlement.Culture.Traits = s.generateNewSettlementTraits()
+		settlement.Facilities = w.generateNewSettlementFacilities(t)
+		settlement.Culture.Traits = w.generateNewSettlementTraits(settlement.Type)
+		settlement.Culture.Skills = w.generateNewSettlementSkills(settlement.Type)
 
 		settlement.Culture.Government = models.RandomMundaneGovernment()
 		settlement.Culture.ShadowGovernment = models.GovernmentUnknown
 
 		if !settlement.Culture.Government.IsPossibleShadowGovernment() {
-			if rand.Intn(2) == 0 {
+			if w.rng.Intn(2) == 0 {
 				for !settlement.Culture.ShadowGovernment.IsPossibleShadowGovernment() {
 					settlement.Culture.ShadowGovernment = models.RandomGovernment()
 				}
 			}
 		}
 
-		settlement.Culture.Laws = s.generateNewSettlementLaws()
+		settlement.Culture.Laws = w.generateNewSettlementLaws()
 
 		w.Settlements = append(w.Settlements, settlement)
 	}
 }
 
-func (s *Service) generateNewSettlementTraits() (selected []models.TraitRecord) {
+func (w *World) generateNewSettlementTraits(t models.SettlementType) (result []models.TraitRecord) {
 	traits := make([]models.TraitRecord, 0)
+	switch t {
+	case models.SettlementElfhome:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Calm", "Quiet":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementDwarvenHalls:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Cunning", "Fiery":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementReligiousBastion:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Defender", "Scarred":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementBustlingMetropolis:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Extravagant", "Jaded":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementWizardsTower:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Skeptical", "Thoughtful":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementRemoteVillage:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Early Riser", "Rough Hands":
+				traits = append(traits, trait)
+			}
+		}
+	case models.SettlementBusyCrossroads:
+		for _, trait := range w.records.Traits() {
+			switch trait.Name {
+			case "Foolhardy", "Quick-Witted":
+				traits = append(traits, trait)
+			}
+		}
+	default:
+		for _, trait := range w.records.Traits() {
+			traits = append(traits, trait)
+		}
 
-	for _, trait := range s.records.Traits() {
-		traits = append(traits, trait)
+		for _, idx := range w.generateUniqueIndexes(3, len(traits)) {
+			result = append(result, traits[idx])
+		}
 	}
 
-	for _, idx := range generateUniqueIndexes(3, len(traits)) {
-		selected = append(selected, traits[idx])
-	}
-
-	return selected
+	return result
 }
 
-func (s *Service) generateNewSettlementLaws() (selected []models.Law) {
-	laws := s.settlementLaws()
+func (w *World) generateNewSettlementSkills(t models.SettlementType) (result []models.Record) {
+	skills := make([]models.Record, 0)
 
-	for _, idx := range generateUniqueIndexes(3, len(laws)) {
+	switch t {
+	case models.SettlementElfhome:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Healer", "Mentor", "Pathfinder":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementDwarvenHalls:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Armorer", "Laborer", "Stonemason":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementReligiousBastion:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Cartographer", "Scholar", "Theologian":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementBustlingMetropolis:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Haggler", "Sailor", "Steward":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementWizardsTower:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Alchemist", "Lore Master", "Scholar":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementRemoteVillage:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Carpenter", "Peasant", "Weaver":
+				skills = append(skills, skill)
+			}
+		}
+	case models.SettlementBusyCrossroads:
+		for _, skill := range w.records.Skills() {
+			switch skill.Name {
+			case "Cook", "Haggler", "Rider":
+				skills = append(skills, skill)
+			}
+		}
+	default:
+		for _, skill := range w.records.Skills() {
+			skills = append(skills, skill)
+		}
+
+		for _, idx := range w.generateUniqueIndexes(3, len(skills)) {
+			result = append(result, skills[idx])
+		}
+	}
+
+	return result
+}
+
+func (w *World) generateNewSettlementLaws() (selected []models.Law) {
+	laws := w.settlementLaws()
+
+	for _, idx := range w.generateUniqueIndexes(3, len(laws)) {
 		selected = append(selected, models.Law(laws[idx]))
 	}
 
 	return selected
 }
 
-func generateUniqueIndexes(n, max int, selections ...int) []int {
+func (w *World) generateUniqueIndexes(n, max int, selections ...int) []int {
 	if n > max {
 		return nil
 	}
@@ -82,17 +215,17 @@ func generateUniqueIndexes(n, max int, selections ...int) []int {
 		return selections
 	}
 
-	index := rand.Intn(max)
+	index := w.rng.Intn(max)
 
 	for slices.Contains(selections, index) {
-		index = rand.Intn(max)
+		index = w.rng.Intn(max)
 	}
 
-	return generateUniqueIndexes(n, max, append(selections, index)...)
+	return w.generateUniqueIndexes(n, max, append(selections, index)...)
 }
 
-func (s *Service) generateNewSettlementFacilities(t models.SettlementType) (f models.FacilityTypeFlag) {
-	return t.RequiredFacilities() | t.RandomOptionalFacilities()
+func (w *World) generateNewSettlementFacilities(t models.SettlementType) (f models.FacilityTypeFlag) {
+	return t.RequiredFacilities() | t.RandomOptionalFacilities(w.rng)
 }
 
 func (s *Service) settlementLaws() []string {

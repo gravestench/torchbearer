@@ -45,10 +45,10 @@ func (t *tuiWorldList) selectedWorld() *World {
 func (t *tuiWorldList) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	t.updateList()
 
-	switch msg := msg.(type) {
+	switch msg2 := msg.(type) {
 	// Is it a key press?
 	case tea.KeyMsg:
-		switch msg.String() {
+		switch msg2.String() {
 		case "up":
 			t.input.selection.index = clamp(t.input.selection.index-1, 0, len(t.root.Service.Worlds))
 		case "down":
@@ -90,14 +90,13 @@ func (t *tuiWorldList) View() string {
 		Padding(0, 1).
 		Align(lipgloss.Right)
 
-	lAlign := lipgloss.NewStyle().
-		Padding(0, 1).
-		Align(lipgloss.Left)
-
+	styleColumn := lipgloss.NewStyle().Padding(0, 1)
+	styleMap := lipgloss.NewStyle().Border(lipgloss.OuterHalfBlockBorder())
 	focus := lipgloss.NewStyle().Background(lipgloss.Color("#7D56F4"))
 
 	var header, content, footer string
-	var colName, colSettlements, colSessions, colTests, colParties string
+	//var colName, colSettlements, colSessions, colTests, colParties string
+	var colName string
 
 	{
 		rows := []string{rAlign.Render(styleHeader.Render("Name"))}
@@ -115,55 +114,13 @@ func (t *tuiWorldList) View() string {
 		colName = lipgloss.JoinVertical(lipgloss.Right, rows...)
 	}
 
-	{
-		rows := []string{lAlign.Render(styleHeader.Render("#Settlements"))}
+	var asciiMap string
 
-		for _, world := range t.root.GetSortedWorlds() {
-			row := lAlign.Render(fmt.Sprintf("%d", len(world.Settlements)))
-
-			rows = append(rows, row)
-		}
-
-		colSettlements = lipgloss.JoinVertical(lipgloss.Left, rows...)
+	if w := t.selectedWorld(); w != nil {
+		asciiMap = ColorizeASCII(t.selectedWorld().AsciiMap)
 	}
 
-	{
-		rows := []string{lAlign.Render(styleHeader.Render("#Sessions"))}
-
-		for _, world := range t.root.GetSortedWorlds() {
-			row := lAlign.Render(fmt.Sprintf("%d", world.Stats.SessionsPlayed))
-
-			rows = append(rows, row)
-		}
-
-		colSessions = lipgloss.JoinVertical(lipgloss.Left, rows...)
-	}
-
-	{
-		rows := []string{lAlign.Render(styleHeader.Render("#Tests"))}
-
-		for _, world := range t.root.GetSortedWorlds() {
-			row := lAlign.Render(fmt.Sprintf("%d", world.Stats.TestsRolled))
-			rows = append(rows, row)
-		}
-
-		colTests = lipgloss.JoinVertical(lipgloss.Left, rows...)
-	}
-
-	{
-		rows := []string{lAlign.Render(styleHeader.Render("#Parties"))}
-
-		for _, world := range t.root.GetSortedWorlds() {
-			_ = world // TODO get active parties from party service
-			row := lAlign.Render(fmt.Sprintf("%d", 0))
-
-			rows = append(rows, row)
-		}
-
-		colParties = lipgloss.JoinVertical(lipgloss.Left, rows...)
-	}
-
-	content = lipgloss.JoinHorizontal(lipgloss.Top, colName, colSettlements, colSessions, colTests, colParties)
+	content = lipgloss.JoinHorizontal(lipgloss.Top, styleColumn.Render(colName), styleMap.Render(asciiMap))
 
 	footer = t.footerLine()
 

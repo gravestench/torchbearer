@@ -17,6 +17,7 @@ type Service struct {
 	cfgManager config.Dependency
 	records    records.Dependency
 	Worlds     []*World
+	ready      bool
 }
 
 func (s *Service) Init(rt runtime.Runtime) {
@@ -24,6 +25,11 @@ func (s *Service) Init(rt runtime.Runtime) {
 	if err := s.LoadWorlds(); err != nil {
 		s.logger.Error().Msgf("loading world config: %v", err)
 	}
+	s.ready = true
+}
+
+func (s *Service) Ready() bool {
+	return s.ready
 }
 
 func (s *Service) Name() string {
@@ -50,4 +56,8 @@ func (s *Service) GetSortedWorlds() []*World {
 	})
 
 	return worlds
+}
+
+func (s *Service) GetWorlds() []*World {
+	return s.GetSortedWorlds()
 }

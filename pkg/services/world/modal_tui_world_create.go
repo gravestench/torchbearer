@@ -27,8 +27,8 @@ func (t *tuiWorldCreate) Init() tea.Cmd {
 	t.step = stepCreateChooseName
 
 	t.input.name = textinput.New()
-	t.input.name.Placeholder = t.root.generateNewSettlementName()
 	t.World, _ = t.root.Service.NewWorld(t.input.name.Placeholder)
+	t.input.name.Placeholder = t.World.generateNewSettlementName()
 	t.input.name.Prompt = ""
 	t.input.name.Focus()
 	t.input.name.CharLimit = 30
@@ -42,15 +42,6 @@ type WorldCreationComplete struct{}
 func (t *tuiWorldCreate) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	if t.step < stepCreateChooseName {
 		t.step = stepCreateChooseName
-	}
-
-	if t.step >= stepCreateNumSteps {
-		t.root.mode = modeList
-		if t.World != nil {
-			t.root.Service.AddWorld(*t.World)
-			t.World = nil
-			t.root.Service.SaveWorlds()
-		}
 	}
 
 	switch t.step {
@@ -87,11 +78,11 @@ func (t *tuiWorldCreate) View() string {
 func (t *tuiWorldCreate) updateChooseName(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
-	switch msg := msg.(type) {
+	switch msg2 := msg.(type) {
 	case tea.KeyMsg:
-		switch msg.String() {
+		switch msg2.String() {
 		case "ctrl+r":
-			t.input.name.Placeholder = t.root.generateNewSettlementName()
+			t.input.name.Placeholder = t.World.generateNewSettlementName()
 		case "enter":
 			t.World.Name = t.input.name.Value()
 
@@ -99,10 +90,14 @@ func (t *tuiWorldCreate) updateChooseName(msg tea.Msg) (tea.Model, tea.Cmd) {
 				t.World.Name = t.input.name.Placeholder
 			}
 
+			t.root.mode = modeList
+			if t.World != nil {
+				t.root.Service.AddWorld(*t.World)
+				t.World = nil
+				t.root.Service.SaveWorlds()
+			}
+
 			t.step++
-		default:
-			_, res := t.input.name.Update(msg)
-			return t, res
 		}
 
 		t.input.name, cmd = t.input.name.Update(msg)

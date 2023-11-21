@@ -2,7 +2,6 @@ package world
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -98,7 +97,7 @@ func (t *tuiSettlementView) viewColumnStats() string {
 }
 
 func (t *tuiSettlementView) viewColumnFacilities() string {
-	titleColor := lipgloss.Color("#9a9a9a")
+	titleColor := lipgloss.Color("#FF0000")
 
 	styleTitle := lipgloss.NewStyle().
 		Align(lipgloss.Center).
@@ -112,7 +111,7 @@ func (t *tuiSettlementView) viewColumnFacilities() string {
 
 	lines := make([]string, 0)
 
-	for idx, facility := range strings.Split(t.Settlement.Facilities.String(), ", ") {
+	for idx, facility := range t.Settlement.Facilities.List() {
 		if idx == t.input.facilities.index {
 			facility = focus.Render(facility)
 		}

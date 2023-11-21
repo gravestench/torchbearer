@@ -3,11 +3,19 @@ package world
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 
 	"github.com/google/uuid"
 
 	"torchbearer/pkg/models"
 	"torchbearer/pkg/services/config"
+)
+
+const (
+	keyWorldName        = "Name"
+	keyWorldSeed        = "Seed"
+	keyWorldSettlements = "Settlements"
+	keyWorldStats       = "Stats"
 )
 
 func (s *Service) ConfigFileName() string {
@@ -28,19 +36,28 @@ func (s *Service) LoadConfig(config *config.Config) {
 			continue
 		}
 
+		w := World{
+			UUID: id,
+			Name: g.GetString(keyWorldName),
+			Seed: int64(g.GetFloat64(keyWorldSeed)),
+		}
+
+		w.rng = rand.New(rand.NewSource(w.Seed))
+		w.generateAsciiMap()
+
 		settlementsData := g.GetJson(keyWorldSettlements)
-		settlements := make([]models.Settlement, 0)
+		settlements := make([]*models.Settlement, 0)
 
 		if err = json.Unmarshal(settlementsData, &settlements); err != nil {
 			s.logger.Error().Msgf("unmarshalling settlement data: %v", err)
 			continue
 		}
 
-		w := World{
-			UUID:        id,
-			Name:        g.GetString(keyWorldName),
-			Settlements: settlements,
+		for _, settlement := range settlements {
+			settlement.Seed = w.Seed + models.GenerateSeedFromString(settlement.Name)
 		}
+
+		w.Settlements = settlements
 
 		s.AddWorld(w)
 	}
@@ -65,6 +82,8 @@ func (s *Service) SaveWorlds() error {
 
 	for _, world := range s.Worlds {
 		g := cfg.Group(world.UUID.String())
+		g.Set(keyWorldName, world.Name)
+		g.Set(keyWorldSeed, world.Seed)
 		g.Set(keyWorldName, world.Name)
 		g.Set(keyWorldSettlements, world.Settlements)
 		g.Set(keyWorldStats, world.Stats)
