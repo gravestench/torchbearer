@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gravestench/runtime"
+	"github.com/rs/zerolog"
 
 	"torchbearer/pkg/services/adventurer"
 	"torchbearer/pkg/services/config"
@@ -21,6 +22,7 @@ const (
 
 func main() {
 	rt := runtime.New("Game Master")
+	rt.SetLogLevel(zerolog.InfoLevel)
 
 	rt.Add(&config.Service{RootDirectory: configDirectory})
 	rt.Add(&tui.Service{})
