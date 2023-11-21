@@ -7,8 +7,8 @@ import (
 type AdventurerManager interface {
 	LoadAdventurers() error
 	SaveAdventurers() error
-	Adventurers() (map[string]models.Adventurer, error)
-	NewAdventurer(name string) models.Adventurer
+	Adventurers() ([]*models.Adventurer, error)
+	NewAdventurer() *models.Adventurer
+	AddAdventurer(*models.Adventurer) error
 	RemoveAdventurer(name string) error
-	EndAdventurer()
 }
