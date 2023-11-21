@@ -46,6 +46,10 @@ func (t *tuiStep) updateApplyAnswer() (tea.Model, tea.Cmd) {
 	switch len(t.step.Choices) {
 	case 0:
 		t.step.Answer = t.input.text.Value()
+
+		if t.step.Answer == "" && t.step.Default != "" {
+			t.step.Answer = t.step.Default
+		}
 	default:
 		choice := t.step.Choices[t.input.choiceIndex]
 		t.step.Answer = choice.Name
@@ -136,6 +140,8 @@ func (t *tuiStep) viewPromptText() string {
 		Width(40).
 		Align(lipgloss.Center).
 		Padding(1)
+
+	t.input.text.Placeholder = t.step.Default
 
 	return style.Render(t.input.text.View())
 }
