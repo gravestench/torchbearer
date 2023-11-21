@@ -1,9 +1,6 @@
 package main
 
 import (
-	"math/rand"
-	"time"
-
 	"github.com/gravestench/runtime"
 
 	"torchbearer/pkg/services/adventurer"
@@ -13,6 +10,8 @@ import (
 	"torchbearer/pkg/services/records"
 	"torchbearer/pkg/services/session"
 	"torchbearer/pkg/services/tui"
+	"torchbearer/pkg/services/webRouter"
+	"torchbearer/pkg/services/webServer"
 	"torchbearer/pkg/services/world"
 )
 
@@ -21,8 +20,6 @@ const (
 )
 
 func main() {
-	rand.Seed(time.Now().Unix())
-
 	rt := runtime.New("Game Master")
 
 	rt.Add(&config.Service{RootDirectory: configDirectory})
@@ -33,6 +30,8 @@ func main() {
 	rt.Add(&adventurer.Service{})
 	rt.Add(&world.Service{})
 	rt.Add(&records.Service{})
+	rt.Add(&webRouter.Service{})
+	rt.Add(&webServer.Service{})
 
 	rt.Run()
 }
