@@ -137,27 +137,10 @@ func (m *tui) View() string {
 }
 
 func (m *tui) viewList() string {
-	styleHeader := lipgloss.NewStyle().Foreground(lipgloss.Color("#ef7aef"))
-
-	rAlign := lipgloss.NewStyle().
-		Width(20).
-		Padding(0, 1).
-		Align(lipgloss.Right)
-
-	lAlign := lipgloss.NewStyle().
-		Width(15).
-		Padding(0, 1).
-		Align(lipgloss.Left)
-
-	header := rAlign.Render("Name") +
-		lAlign.Render("Level") +
-		lAlign.Render("Alive") +
-		lAlign.Render("In Party")
-
 	content := m.tuiList.View()
 	footer := m.footerLine()
 
-	return lipgloss.JoinVertical(lipgloss.Center, styleHeader.Render(header), content, footer)
+	return lipgloss.JoinVertical(lipgloss.Center, content, footer)
 }
 
 func (m *tui) footerLine() string {

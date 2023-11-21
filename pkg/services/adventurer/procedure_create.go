@@ -120,6 +120,7 @@ func (p *procedureCreateAdventurer) chooseName() *procedure.Step {
 	step := &procedure.Step{
 		Key:             keyChooseName,
 		Prompt:          "What is your name?",
+		Default:         p.service.GenerateAdventurerName(false, false),
 		ValidatorRegex:  `^\w+( \w+)?$`,
 		ValidatorPrompt: "first name is required, last name is optional",
 	}

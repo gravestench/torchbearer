@@ -5,7 +5,26 @@ import (
 	"math/rand"
 )
 
-func (s *Service) GenerateAdventurerName() string {
+func (s *Service) GenerateAdventurerName(withTitle, withEpithet bool) string {
+	first := firstName[rand.Intn(len(firstName))]
+	last := lastName[rand.Intn(len(lastName))]
+
+	name := fmt.Sprintf("%s %s", first, last)
+
+	if withTitle {
+		title := titles[rand.Intn(len(titles))]
+		name = fmt.Sprintf("%s %s", title, name)
+	}
+
+	if withEpithet {
+		epithet := epithets[rand.Intn(len(epithets))]
+		name = fmt.Sprintf("%s %s", name, epithet)
+	}
+
+	return name
+}
+
+func (s *Service) GenerateRandomName() string {
 	withTitle := rand.Intn(3)   // 33% chance of having a title
 	withEpithet := rand.Intn(3) // 33% chance of having an epithet
 
