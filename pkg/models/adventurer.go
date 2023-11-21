@@ -5,17 +5,22 @@ import (
 )
 
 type Adventurer struct {
-	ID   uuid.UUID
-	Name string
-	Age  int
-	Stock
-	Traits []AdventurerTrait
-	Wises
+	ID       uuid.UUID
+	World    uuid.UUID
+	Hometown uuid.UUID
+	Party    uuid.UUID
+	Name     string
+	Stock    struct {
+		Name                string
+		ChosenLevelBenefits []string
+	}
 	Raiment
 	Condition
 	Goals         AdventurerGoals
 	Rewards       AdventurerRewards
 	Relationships AdventurerRelationships
 	Abilities     AdventurerAbilities
-	Skills        []AdventurerSkill
+	Traits        map[string]*AdventurerTrait
+	Skills        map[string]*AdventurerSkill
+	Wises         map[string]*AdventurerWise
 }

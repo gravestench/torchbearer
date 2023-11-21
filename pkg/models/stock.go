@@ -7,6 +7,7 @@ import (
 type Stock struct {
 	Race
 	Class
+	Nature
 	Description   string
 	LevelBenefits [][]Benefit
 }

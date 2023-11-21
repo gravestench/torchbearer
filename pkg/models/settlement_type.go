@@ -2,6 +2,7 @@ package models
 
 import (
 	"math/rand"
+	"time"
 )
 
 type SettlementType string
@@ -274,7 +275,11 @@ func (st SettlementType) OptionalFacilities() FacilityTypeFlag {
 	}[st]
 }
 
-func (st SettlementType) RandomOptionalFacilities() FacilityTypeFlag {
+func (st SettlementType) RandomOptionalFacilities(rng *rand.Rand) FacilityTypeFlag {
+	if rng == nil {
+		rng = rand.New(rand.NewSource(time.Now().UnixNano()))
+	}
+
 	flags := st.OptionalFacilities()
 	// Initialize the result with all bits set to false (0)
 	result := 0

@@ -124,63 +124,6 @@ func (ft FacilityTypeFlag) Strings() []string {
 	return strings.Split(ft.String(), ", ")
 }
 
-//func (ft FacilityTypeFlag) MarshalJSON() ([]byte, error) {
-//	list := ft.Strings()
-//
-//	for idx, item := range list {
-//		list[idx] = fmt.Sprintf("%q", item)
-//	}
-//
-//	return []byte(fmt.Sprintf("[%s]", strings.Join(list, ", "))), nil
-//}
-//
-//func (ft FacilityTypeFlag) UnmarshalJSON(data []byte, v any) error {
-//	var strList []string
-//
-//	// Unmarshal the JSON array into a slice of strings
-//	if err := json.Unmarshal(data, &strList); err != nil {
-//		return err
-//	}
-//
-//	// Create a new FacilityTypeFlag with the parsed values
-//	var newFT FacilityTypeFlag
-//
-//	// Iterate through the strings and add them to the new FacilityTypeFlag
-//	for _, str := range strList {
-//		// Remove surrounding double quotes
-//		str = strings.Trim(str, "\"")
-//
-//		for _, t := range []FacilityTypeFlag{
-//			FacilityAncestralVault,
-//			FacilityDocks,
-//			FacilityDreamhouse,
-//			FacilityFarmsOrPastures,
-//			FacilityFlophouse,
-//			FacilityGuildHall,
-//			FacilityHedgeWitch,
-//			FacilityHotel,
-//			FacilityInn,
-//			FacilityMarket,
-//			FacilityHomes,
-//			FacilityRiverOrCanal,
-//			FacilityShrine,
-//			FacilityStables,
-//			FacilityStreets,
-//			FacilityTavern,
-//			FacilityTemple,
-//			FacilityThievesGuild,
-//			FacilityWall,
-//			FacilityWell,
-//			FacilityWizardsTower,
-//		} {
-//			if strings.Contains(str, t.String()) {
-//				newFT |= t
-//			}
-//		}
-//	}
-//
-//	// Set the new FacilityTypeFlag as the receiver
-//	v = newFT
-//
-//	return nil
-//}
+func (ft FacilityTypeFlag) List() []string {
+	return strings.Split(ft.String(), ", ")
+}

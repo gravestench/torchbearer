@@ -1,6 +1,14 @@
 package models
 
+import (
+	"fmt"
+)
+
 type AdventurerTrait struct {
-	Record TraitRecord
-	Level  int
+	RecordKey string
+	Level     int
+}
+
+func (s AdventurerTrait) String() string {
+	return fmt.Sprintf("%s %d", s.RecordKey, s.Level)
 }

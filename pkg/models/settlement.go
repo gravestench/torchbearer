@@ -1,17 +1,25 @@
 package models
 
+import (
+	"github.com/google/uuid"
+)
+
 type Location any
 type Shrine any
 type Temple any
 type Law string
 
 type Settlement struct {
-	Name    string
-	Type    SettlementType
-	Culture struct {
+	UUID        uuid.UUID
+	Seed        int64
+	Name        string
+	Type        SettlementType
+	description string
+	Culture     struct {
 		Government
 		ShadowGovernment Government
 		Traits           []TraitRecord
+		Skills           []Record
 		Laws             []Law
 		Shrines          []Shrine
 		Temples          []Temple

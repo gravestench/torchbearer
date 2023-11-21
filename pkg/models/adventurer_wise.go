@@ -1,8 +1,13 @@
 package models
 
-type Wise struct {
-	Name        string
-	Description string
+type AdventurerWise struct {
+	Record WiseRecord
+	Tests  struct {
+		IAmWise struct {
+			Pass int
+			Fail int
+		}
+		DeeperUnderstanding int
+		OfCourse            int
+	}
 }
-
-type Wises []Wise
