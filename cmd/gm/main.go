@@ -5,6 +5,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"torchbearer/pkg/services/adventurer"
+	"torchbearer/pkg/services/chatgpt"
 	"torchbearer/pkg/services/config"
 	"torchbearer/pkg/services/dice"
 	"torchbearer/pkg/services/phase"
@@ -34,6 +35,7 @@ func main() {
 	rt.Add(&records.Service{})
 	rt.Add(&webRouter.Service{})
 	rt.Add(&webServer.Service{})
+	rt.Add(&chatgpt.Service{})
 
 	rt.Run()
 }

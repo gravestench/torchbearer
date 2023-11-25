@@ -4,6 +4,8 @@ import (
 	"torchbearer/pkg/models"
 )
 
+type Dependency = AdventurerManager
+
 type AdventurerManager interface {
 	LoadAdventurers() error
 	SaveAdventurers() error

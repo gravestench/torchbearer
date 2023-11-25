@@ -38,6 +38,11 @@ func (s *Step) Complete() error {
 	return nil
 }
 
+func (s *Step) Reset() {
+	s.Answer = ""
+	s.isComplete = false
+}
+
 func (s *Step) Validate() (err error) {
 	if s.ShouldSkip != nil {
 		if s.ShouldSkip() {

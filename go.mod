@@ -6,6 +6,7 @@ toolchain go1.21.3
 
 require (
 	github.com/aquilax/go-perlin v1.1.0
+	github.com/ayush6624/go-chatgpt v0.3.0
 	github.com/charmbracelet/bubbles v0.16.1
 	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/charmbracelet/lipgloss v0.9.1
