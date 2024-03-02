@@ -29,7 +29,7 @@ export default {
     async submitForm() {
       try {
         // Send a POST request to the /account/login endpoint
-        const response = await fetch('/account/login', {
+        const response = await fetch('/api/account/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -39,9 +39,12 @@ export default {
 
         // Handle the response here, e.g., show success message or redirect
         if (response.ok) {
+          console.log("redirecting to home")
           // Redirect to a success page or perform other actions
+          this.$router.push("/")
         } else {
           // Handle login failure, e.g., show error message
+          this.$router.push("/login")
         }
       } catch (error) {
         // Handle network or other errors
