@@ -16,9 +16,11 @@ type Service struct {
 
 	cfgManager config.Dependency
 
-	root *gin.Engine
-	api  *gin.RouterGroup
-	auth []gin.HandlerFunc // gathered from other services
+	root     *gin.Engine
+	api      *gin.RouterGroup
+	cors     gin.HandlerFunc
+	sessions gin.HandlerFunc
+	auth     []gin.HandlerFunc // gathered from other services
 
 	boundServices map[string]*struct{} // holds 0-size entries
 

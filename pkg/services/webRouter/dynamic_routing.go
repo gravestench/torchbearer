@@ -50,6 +50,8 @@ func (s *Service) Reload() {
 		Logger("gin", s.Logger())(c)
 	})
 
+	s.initSessionMiddleware()
+	s.initCorsMiddleware()
 	s.initStaticAssetsMiddleware()
 	s.initAuthMiddleware()
 }
