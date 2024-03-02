@@ -2,6 +2,7 @@ package account
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -10,7 +11,11 @@ import (
 )
 
 func (s *Service) AuthMiddleware() gin.HandlerFunc {
-	const sessionKey = "torchbearer"
+	for s.router == nil {
+		time.Sleep(time.Second)
+	}
+
+	const sessionKey = "session"
 	store := cookie.NewStore([]byte(uuid.New().String()))
 	s.router.RouteRoot().Use(sessions.Sessions(sessionKey, store))
 
@@ -24,6 +29,7 @@ func (s *Service) authMiddleware(c *gin.Context) {
 	if isAuthenticated != nil && isAuthenticated.(bool) {
 		c.Next()
 	} else {
+		session.Delete("authenticated")
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
 		c.Abort()
 	}
