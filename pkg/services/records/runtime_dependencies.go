@@ -1,7 +1,7 @@
 package records
 
 import (
-	"github.com/gravestench/runtime/pkg"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
 )
@@ -14,8 +14,8 @@ func (s *Service) DependenciesResolved() bool {
 	return true
 }
 
-func (s *Service) ResolveDependencies(rt pkg.IsRuntime) {
-	for _, service := range rt.Services() {
+func (s *Service) ResolveDependencies(services []servicemesh.Service) {
+	for _, service := range services {
 		switch candidate := service.(type) {
 		case config.Dependency:
 			s.cfgManager = candidate

@@ -63,7 +63,7 @@ func (w *World) generateAsciiMap() {
 		}
 	}
 
-	w.AsciiMap = w.imageToAscii(noiseImage, 80)
+	w.AsciiMap = w.imageToAscii(noiseImage, 60)
 }
 
 // Convert an image.Image to ASCII art with the specified width

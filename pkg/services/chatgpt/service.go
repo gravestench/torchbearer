@@ -3,28 +3,28 @@ package chatgpt
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/ayush6624/go-chatgpt"
-	"github.com/gravestench/runtime"
-	"github.com/gravestench/runtime/pkg"
-	"github.com/rs/zerolog"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
 )
 
 type Service struct {
-	logger     *zerolog.Logger
+	logger     *slog.Logger
 	client     *chatgpt.Client
 	cfgManager config.Dependency
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 	cfg, err := s.cfgManager.GetConfigByFileName(s.ConfigFileName())
 	if err != nil {
 		cfg, err = s.cfgManager.CreateConfigWithFileName(s.ConfigFileName())
 		if err != nil {
-			s.logger.Fatal().Msgf("creating skill records config file: %v", err)
+			s.logger.Error("creating skill records", "error", err)
+			mesh.Shutdown()
 		}
 	}
 
@@ -32,7 +32,7 @@ func (s *Service) Init(rt runtime.Runtime) {
 
 	c, err := chatgpt.NewClient(key)
 	if err != nil {
-		s.logger.Error().Msgf("could not init client: %v", err)
+		s.logger.Error("could not init client", "error", err)
 		return
 	}
 
@@ -43,11 +43,11 @@ func (s *Service) Name() string {
 	return "ChatGPT"
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }
 
@@ -59,8 +59,8 @@ func (s *Service) DependenciesResolved() bool {
 	return true
 }
 
-func (s *Service) ResolveDependencies(rt pkg.IsRuntime) {
-	for _, service := range rt.Services() {
+func (s *Service) ResolveDependencies(services []servicemesh.Service) {
+	for _, service := range services {
 		switch candidate := service.(type) {
 		case config.Dependency:
 			s.cfgManager = candidate

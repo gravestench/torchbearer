@@ -5,9 +5,10 @@ import (
 )
 
 type AdventurerRelationships struct {
-	Parents []uuid.UUID
-	Mentor  uuid.UUID
-	Friend  uuid.UUID
-	Enemies []uuid.UUID
-	Allies  []uuid.UUID
+	Parents   []uuid.UUID
+	Mentor    uuid.UUID
+	Friend    uuid.UUID
+	Enemies   []uuid.UUID
+	Allies    []uuid.UUID
+	Anecdotes []string
 }

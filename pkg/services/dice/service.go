@@ -1,17 +1,25 @@
 package dice
 
 import (
+	"log/slog"
 	"time"
 
-	"github.com/gravestench/runtime"
-	"github.com/rs/zerolog"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/models"
 )
 
 type Service struct {
-	logger *zerolog.Logger
+	logger *slog.Logger
 	rolls  map[time.Time]models.Dice
+}
+
+func (s *Service) Init(mesh servicemesh.Mesh) {
+	s.rolls = make(map[time.Time]models.Dice)
+}
+
+func (s *Service) Name() string {
+	return "Dice"
 }
 
 func (s *Service) Roll(n int) models.Dice {
@@ -22,7 +30,7 @@ func (s *Service) Roll(n int) models.Dice {
 		dice[idx].Roll()
 	}
 
-	s.logger.Info().Msgf("Rolling (%d dice): %s", n, dice.String())
+	s.logger.Info("rolling dice", "count", n, "result", dice.String())
 
 	s.rolls[time.Now()] = dice
 
@@ -56,7 +64,7 @@ func (s *Service) Reroll6s(dice models.Dice) models.Dice {
 	}
 
 	if len(additional) > 0 {
-		s.logger.Info().Msgf("Reroll 6s (%d additional): %s", len(additional), additional.String())
+		s.logger.Info("rerolling dice", "count", len(additional), "result", additional.String())
 	}
 
 	// recurse
@@ -67,18 +75,10 @@ func (s *Service) Reroll6s(dice models.Dice) models.Dice {
 	return append(dice, additional...)
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
-	s.rolls = make(map[time.Time]models.Dice)
-}
-
-func (s *Service) Name() string {
-	return "Dice"
-}
-
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }

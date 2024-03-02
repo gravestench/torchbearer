@@ -1,14 +1,14 @@
 package webServer
 
 import (
-	"github.com/gravestench/runtime"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
 )
 
 var (
-	_ runtime.Service         = &Service{}
-	_ runtime.HasLogger       = &Service{}
+	_ servicemesh.Service     = &Service{}
+	_ servicemesh.HasLogger   = &Service{}
 	_ config.HasDefaultConfig = &Service{}
 	_ IsWebServer             = &Service{}
 )

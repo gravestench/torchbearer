@@ -1,12 +1,13 @@
 package phase
 
 import (
-	"github.com/gravestench/runtime"
-	"github.com/rs/zerolog"
+	"log/slog"
+
+	"github.com/gravestench/servicemesh"
 )
 
 type Service struct {
-	logger       *zerolog.Logger
+	logger       *slog.Logger
 	phases       map[string]Phase
 	currentPhase string
 }
@@ -21,7 +22,7 @@ func (s *Service) NextPhase() Phase {
 	panic("implement me")
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 	s.phases = make(map[string]Phase)
 	s.createAdventurePhase()
 }
@@ -30,10 +31,14 @@ func (s *Service) Name() string {
 	return "Phase"
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) Ready() bool {
+	return s.phases != nil
+}
+
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }

@@ -6,8 +6,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/gravestench/runtime"
-	"github.com/rs/zerolog"
 
 	"torchbearer/pkg/services/chatgpt"
 	"torchbearer/pkg/services/config"
@@ -46,7 +44,7 @@ type Message struct {
 }
 
 type Service struct {
-	logger   *zerolog.Logger
+	logger   *slog.Logger
 	id       *uuid.UUID
 	cfg      config.Dependency
 	gpt      chatgpt.Dependency
@@ -54,12 +52,23 @@ type Service struct {
 	messages []Message
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 
 }
 
 func (s *Service) Name() string {
-	return fmt.Sprintf("ChatGPT Agent %s", s.UUID().String())
+	const maxLength = 6
+
+	id := s.UUID().String()
+
+	if len(id) <= maxLength {
+		return id
+	}
+
+	// Truncate the input string to the maxLength
+	id = id[:maxLength]
+
+	return fmt.Sprintf("ChatGPT Agent %s", id)
 }
 
 func (s *Service) DependenciesResolved() bool {
@@ -74,8 +83,8 @@ func (s *Service) DependenciesResolved() bool {
 	return true
 }
 
-func (s *Service) ResolveDependencies(rt runtime.R) {
-	for _, service := range rt.Services() {
+func (s *Service) ResolveDependencies(services []servicemesh.Service) {
+	for _, service := range services {
 		switch candidate := service.(type) {
 		case config.Dependency:
 			s.cfg = candidate
@@ -85,11 +94,11 @@ func (s *Service) ResolveDependencies(rt runtime.R) {
 	}
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }
 

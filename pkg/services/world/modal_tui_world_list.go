@@ -104,7 +104,7 @@ func (t *tuiWorldList) View() string {
 		for _, world := range t.root.GetSortedWorlds() {
 			row := world.Name
 
-			if selected := t.selectedWorld(); selected != nil && world.UUID == selected.UUID {
+			if selected := t.selectedWorld(); selected != nil && world.WorldID == selected.WorldID {
 				row = focus.Render(row)
 			}
 

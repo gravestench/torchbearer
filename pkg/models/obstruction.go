@@ -32,3 +32,7 @@ type Factor string
 func (f Factor) Value() {
 
 }
+
+func ParseObstruction(s string) (o Obstruction) {
+	return o.FromString(s)
+}

@@ -4,13 +4,13 @@ import (
 	"torchbearer/pkg/models"
 )
 
-type SkillRecords map[string]models.Record
+type SkillRecords map[string]models.SkillRecord
 
-func (st SkillRecords) AddSkill(s models.Record) {
+func (st SkillRecords) AddSkill(s models.SkillRecord) {
 	st[s.Name] = s
 }
 
-func (st SkillRecords) GetSkillByName(name string) (models.Record, bool) {
+func (st SkillRecords) GetSkillByName(name string) (models.SkillRecord, bool) {
 	skill, exists := st[name]
 
 	return skill, exists
@@ -19,7 +19,7 @@ func (st SkillRecords) GetSkillByName(name string) (models.Record, bool) {
 func (s *Service) defaultSkillTable() SkillRecords {
 	table := make(SkillRecords)
 
-	for _, skill := range []models.Record{
+	for _, skill := range []models.SkillRecord{
 		{
 			Name: "Beggar",
 			Description: "Beggars are seen as worthless and talentless " +

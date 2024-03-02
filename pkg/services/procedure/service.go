@@ -2,29 +2,29 @@ package procedure
 
 import (
 	"fmt"
+	"log/slog"
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/gravestench/runtime/pkg"
-	"github.com/rs/zerolog"
+	"github.com/gravestench/servicemesh"
 )
 
 type Service struct {
-	logger     *zerolog.Logger
+	logger     *slog.Logger
 	mux        sync.Mutex
 	generators map[string]Procedure
 	instances  map[uuid.UUID]Procedure
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }
 
-func (s *Service) Init(rt pkg.IsRuntime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 	s.generators = make(map[string]Procedure)
 	s.instances = make(map[uuid.UUID]Procedure)
 }

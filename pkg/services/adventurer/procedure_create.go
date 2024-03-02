@@ -12,56 +12,57 @@ import (
 )
 
 const (
-	keyChooseWorld                                = "world"
-	keyChooseName                                 = "name"
-	keyChooseStock                                = "stock"
-	keyChooseHumanUpbringing                      = "human upbringing"
-	keyChooseHometown                             = "hometown"
-	keyChooseHometownTrait                        = "hometown trait"
-	keyChooseHometownSkill                        = "hometown skill"
-	keyChooseSocialGraces                         = "social graces"
-	keyChooseSpecialty                            = "specialty"
-	keyChooseElvenWise                            = "elven wise"
-	keyChooseDwarvenWise                          = "dwarven wise"
-	keyChooseHalflingWise                         = "halfling wise"
-	keyChooseAdditionalWise                       = "additional wise"
-	keyChooseHumanWise                            = "human wise"
-	keyChooseElvenNature1                         = "elven nature 1"
-	keyChooseElvenNature2                         = "elven nature 2"
-	keyChooseElvenNature3                         = "elven nature 3"
-	keyChooseElvenNature3Option                   = "elven nature 3 option"
-	keyChooseDwarvenNature1                       = "dwarven nature 1"
-	keyChooseDwarvenNature2                       = "dwarven nature 2"
-	keyChooseDwarvenNature3                       = "dwarven nature 3"
-	keyChooseHalflingNature1                      = "halfling nature 1"
-	keyChooseHalflingNature2                      = "halfling nature 2"
-	keyChooseHalflingNature3                      = "halfling nature 3"
-	keyChooseHumanNature1                         = "human nature 1"
-	keyChooseHumanNature2                         = "human nature 2"
-	keyChooseHumanNature2option                   = "human nature 2 option"
-	keyChooseHumanNature3                         = "human nature 3"
-	keyChooseHumanNature3Option                   = "human nature 3 option"
-	keyChooseRelationships1                       = "relationships 1"
-	keyChooseRelationshipFriend1                  = "relationship friend1"
-	keyChooseRelationshipFriend2                  = "relationship friend2"
-	keyChooseRelationshipFriendTownsfolk1         = "relationship friend townsfolk 1"
-	keyChooseRelationshipFriendTownsfolk2         = "relationship friend townsfolk 2"
-	keyChooseRelationshipFriendAdventurer         = "relationship friend adventurer"
-	keyChooseRelationshipFriendAdventurerLastSeen = "relationship friend adventurer lastseen"
-	keyChooseRelationshipParents                  = "relationship parents"
-	keyChooseRelationshipMentor                   = "relationship mentor"
-	keyChooseRelationshipEnemy                    = "relationship enemy"
+	keyChooseWorld                         = "keyChooseWorld"
+	keyChooseName                          = "keyChooseName"
+	keyChooseStock                         = "keyChooseStock"
+	keyChooseHumanUpbringing               = "keyChooseHumanUpbringing"
+	keyChooseHometown                      = "keyChooseHometown"
+	keyChooseHometownTrait                 = "keyChooseHometownTrait"
+	keyChooseHometownSkill                 = "keyChooseHometownSkill"
+	keyChooseSocialGraces                  = "keyChooseSocialGraces"
+	keyChooseSpecialty                     = "keyChooseSpecialty"
+	keyChooseElvenWise                     = "keyChooseElvenWise"
+	keyChooseDwarvenWise                   = "keyChooseDwarvenWise"
+	keyChooseHalflingWise                  = "keyChooseHalflingWise"
+	keyChooseAdditionalWise                = "keyChooseAdditionalWise"
+	keyChooseHumanWise                     = "keyChooseHumanWise"
+	keyChooseElvenNature1                  = "keyChooseElvenNature1"
+	keyChooseElvenNature2                  = "keyChooseElvenNature2"
+	keyChooseElvenNature3                  = "keyChooseElvenNature3"
+	keyChooseElvenNature3Option            = "keyChooseElvenNature3Option"
+	keyChooseDwarvenNature1                = "keyChooseDwarvenNature1"
+	keyChooseDwarvenNature2                = "keyChooseDwarvenNature2"
+	keyChooseDwarvenNature3                = "keyChooseDwarvenNature3"
+	keyChooseHalflingNature1               = "keyChooseHalflingNature1"
+	keyChooseHalflingNature2               = "keyChooseHalflingNature2"
+	keyChooseHalflingNature3               = "keyChooseHalflingNature3"
+	keyChooseHumanNature1                  = "keyChooseHumanNature1"
+	keyChooseHumanNature2                  = "keyChooseHumanNature2"
+	keyChooseHumanNature2option            = "keyChooseHumanNature2option"
+	keyChooseHumanNature3                  = "keyChooseHumanNature3"
+	keyChooseHumanNature3Option            = "keyChooseHumanNature3Option"
+	keyChooseRelationships1                = "keyChooseRelationships1"
+	keyChooseRelationshipFriend1           = "keyChooseRelationshipFriend1"
+	keyChooseRelationshipFriend2           = "keyChooseRelationshipFriend2"
+	keyChooseRelationshipFriendTownsfolk1  = "keyChooseRelationshipFriendTownsfolk1"
+	keyChooseRelationshipFriendTownsfolk2  = "keyChooseRelationshipFriendTownsfolk2"
+	keyChooseRelationshipFriendAdventurer1 = "keyChooseRelationshipFriendAdventurer1"
+	keyChooseRelationshipFriendAdventurer2 = "keyChooseRelationshipFriendAdventurer2"
+	keyChooseRelationshipFriendLastSeen    = "keyChooseRelationshipFriendLastSeen"
+	keyChooseRelationshipParents1          = "keyChooseRelationshipParents1"
+	keyChooseRelationshipParentsFamilyName = "keyChooseRelationshipParentsFamilyName"
+	keyChooseRelationshipParentsName1      = "keyChooseRelationshipParentsName1"
+	keyChooseRelationshipParentsName2      = "keyChooseRelationshipParentsName2"
+	keyChooseRelationshipParentsTrade      = "keyChooseRelationshipParentsTrade"
+	keyChooseRelationshipOrphanKeepsake1   = "keyChooseRelationshipOrphanKeepsake1"
+	keyChooseRelationshipOrphanKeepsake2   = "keyChooseRelationshipOrphanKeepsake2"
+	keyChooseRelationshipOrphanKeepsake3   = "keyChooseRelationshipOrphanKeepsake3"
+	keyChooseRelationshipMentor            = "keyChooseRelationshipMentor"
+	keyChooseRelationshipEnemy             = "keyChooseRelationshipEnemy"
 )
 
 type procedureCreateAdventurer struct {
-	Adventurer    *models.Adventurer
-	Relationships struct {
-		FriendAdventurer *models.Adventurer
-		FriendTownsfolk  *models.Townsfolk
-		Parents          []*models.Townsfolk
-		Mentor           *models.Adventurer
-		Enemy            *models.Adventurer
-	}
+	Adventurer *models.Adventurer
 	*procedure.Procedure
 	service *Service
 }
@@ -69,7 +70,7 @@ type procedureCreateAdventurer struct {
 func (s *Service) CreateAdventurerProcedure() *procedureCreateAdventurer {
 	instance := &procedureCreateAdventurer{
 		service:    s,
-		Adventurer: s.NewAdventurer(),
+		Adventurer: models.NewAdventurer(),
 		Procedure:  procedure.New("Create Adventurer"),
 	}
 
@@ -79,9 +80,8 @@ func (s *Service) CreateAdventurerProcedure() *procedureCreateAdventurer {
 	instance.PushStep(instance.chooseWorld())
 
 	instance.OnComplete = func() {
-
 		if err := s.AddAdventurer(instance.Adventurer); err != nil {
-			s.logger.Error().Msgf("creating new adventurer: %v", err)
+			s.logger.Error("creating new adventurer: %v", err)
 		}
 	}
 
@@ -95,7 +95,7 @@ func (p *procedureCreateAdventurer) chooseWorld() *procedure.Step {
 		var numAdventurers int
 
 		for _, existingAdventurer := range p.service.adventurers {
-			if existingAdventurer.World == w.UUID {
+			if existingAdventurer.World == w.WorldID {
 				numAdventurers++
 			}
 		}
@@ -120,7 +120,7 @@ func (p *procedureCreateAdventurer) chooseWorld() *procedure.Step {
 			return
 		}
 
-		p.Adventurer.World = world.UUID
+		p.Adventurer.World = world.WorldID
 
 		p.PushStep(p.chooseName())
 	}
@@ -129,7 +129,6 @@ func (p *procedureCreateAdventurer) chooseWorld() *procedure.Step {
 }
 
 func (p *procedureCreateAdventurer) chooseName() *procedure.Step {
-	// WORLD, choose the world that this adventurer exists in
 	step := &procedure.Step{
 		Key:             keyChooseName,
 		Prompt:          "What is your name?",
@@ -197,7 +196,8 @@ func (p *procedureCreateAdventurer) chooseHumanUpbringing() *procedure.Step {
 	} {
 		record, err := p.service.records.GetSkillByName(skillName)
 		if err != nil {
-			p.service.logger.Fatal().Msgf("selecting skill %q: %v", skillName, err)
+			p.service.logger.Error("selecting skill %q: %v", skillName, err)
+			panic(err)
 		}
 
 		choices = append(choices, procedure.Choice{
@@ -239,7 +239,8 @@ func (p *procedureCreateAdventurer) chooseHometown() *procedure.Step {
 
 	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	var choices []procedure.Choice
@@ -264,7 +265,7 @@ func (p *procedureCreateAdventurer) chooseHometown() *procedure.Step {
 			return
 		}
 
-		p.Adventurer.Hometown = settlement.UUID
+		p.Adventurer.Hometown = settlement.SettlementID
 
 		p.PushStep(p.chooseHometownTrait())
 	}
@@ -286,7 +287,8 @@ func (p *procedureCreateAdventurer) chooseHometownTrait() *procedure.Step {
 
 	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	hometown := w.Settlements[0]
@@ -348,7 +350,8 @@ func (p *procedureCreateAdventurer) chooseHometownSkill() *procedure.Step {
 
 	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	hometown := w.Settlements[0]
@@ -629,11 +632,11 @@ func (p *procedureCreateAdventurer) chooseAdditionalWise() *procedure.Step {
 		r := regexp.MustCompile(step.ValidatorRegex)
 		matches := r.FindStringSubmatch(step.Answer)
 
-		if len(matches) >= 2 {
+		if len(matches) >= 3 {
 			p.Adventurer.Wises[step.Answer] = &models.AdventurerWise{
 				Record: models.WiseRecord{
-					Name:        matches[0],
-					Description: matches[1],
+					Name:        matches[1],
+					Description: matches[2],
 				},
 			}
 		}
@@ -787,7 +790,8 @@ func (p *procedureCreateAdventurer) chooseElvenNature3Option() *procedure.Step {
 	} {
 		record, err := p.service.records.GetTraitByName(traitName)
 		if err != nil {
-			p.service.logger.Fatal().Msgf("cant find trait %q", traitName)
+			p.service.logger.Error("cant find trait %q", traitName)
+			panic(err)
 		}
 
 		choices = append(choices, procedure.Choice{
@@ -814,7 +818,7 @@ func (p *procedureCreateAdventurer) chooseElvenNature3Option() *procedure.Step {
 		default:
 			record, err := p.service.records.GetTraitByName(step.Answer)
 			if err != nil {
-				p.service.logger.Error().Msgf("cant find trait %q", step.Answer)
+				p.service.logger.Error("cant find trait %q", step.Answer)
 				step.Reset()
 				return
 			}
@@ -1125,7 +1129,8 @@ func (p *procedureCreateAdventurer) chooseHumanNature3Option() *procedure.Step {
 	} {
 		record, err := p.service.records.GetTraitByName(traitName)
 		if err != nil {
-			p.service.logger.Fatal().Msgf("cant find trait %q", traitName)
+			p.service.logger.Error("cant find trait %q", traitName)
+			panic(err)
 		}
 
 		choices = append(choices, procedure.Choice{
@@ -1152,7 +1157,8 @@ func (p *procedureCreateAdventurer) chooseHumanNature3Option() *procedure.Step {
 		default:
 			record, err := p.service.records.GetTraitByName(step.Answer)
 			if err != nil {
-				p.service.logger.Fatal().Msgf("cant find trait %q", step.Answer)
+				p.PushStep(p.chooseRelationships1())
+				return
 			}
 
 			delete(p.Adventurer.Traits, stepHometownTrait.Answer)
@@ -1221,52 +1227,49 @@ func (p *procedureCreateAdventurer) chooseRelationshipFriend2() *procedure.Step 
 
 	stepChooseRelationshipFriend1, found := p.GetStepByKey(keyChooseRelationshipFriend1)
 	if !found {
-		p.service.logger.Fatal().Msgf("couldn't get chosen friend namestep")
+		p.service.logger.Error("couldn't get chosen friend name step")
+		panic("couldn't get chosen friend name step")
 	}
 
 	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
 	if !found {
-		p.service.logger.Fatal().Msgf("couldn't get chosen world from chooseWorld step")
+		p.service.logger.Error("couldn't get chosen world from chooseWorld step")
+		panic("couldn't get chosen world from chooseWorld step")
 	}
 
 	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	stepChooseHometown, found := p.GetStepByKey(keyChooseHometown)
 	if !found {
-		p.service.logger.Fatal().Msgf("couldn't get chosen hometown from chooseHometown step")
+		p.service.logger.Error("couldn't get chosen hometown from chooseHometown step")
+		panic(err)
 	}
 
 	hometown, err := world.GetSettlementByName(stepChooseHometown.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	step.OnComplete = func() {
 		switch step.Answer {
 		case "Townsfolk":
-			p.Relationships.FriendTownsfolk = &models.Townsfolk{
-				ID:       uuid.New(),
-				World:    world.UUID,
-				Hometown: hometown.UUID,
-				Relationships: map[uuid.UUID]string{
-					p.Adventurer.ID: "friend",
-				},
-				Name: stepChooseRelationshipFriend1.Answer,
-			}
+			friend := hometown.NewTownsfolk()
+			friend.Name = stepChooseRelationshipFriend1.Answer
+			friend.Relationships[p.Adventurer.ID] = "friend"
+			p.Adventurer.Relationships.Friend = friend.TownsfolkID
 			p.PushStep(p.chooseRelationshipFriendTownsfolk1())
 		case "Adventurer":
-			p.Relationships.FriendAdventurer = &models.Adventurer{
-				ID:       uuid.New(),
-				World:    world.UUID,
-				Hometown: hometown.UUID,
-				Name:     stepChooseRelationshipFriend1.Answer,
-				Relationships: models.AdventurerRelationships{
-					Friend: p.Adventurer.ID,
-				},
-			}
+			friend := p.service.NewAdventurer()
+			friend.World = world.WorldID
+			friend.Hometown = hometown.SettlementID
+			friend.Name = stepChooseRelationshipFriend1.Answer
+			friend.Relationships.Friend = p.Adventurer.ID
+			p.Adventurer.Relationships.Friend = friend.ID
 			p.PushStep(p.chooseRelationshipFriendAdventurer1())
 		}
 	}
@@ -1282,7 +1285,8 @@ func (p *procedureCreateAdventurer) chooseRelationshipFriendTownsfolk1() *proced
 
 	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	var choices []procedure.Choice
@@ -1307,7 +1311,9 @@ func (p *procedureCreateAdventurer) chooseRelationshipFriendTownsfolk1() *proced
 			return
 		}
 
-		p.Relationships.FriendTownsfolk.Residence = residence.UUID
+		if t, err := w.GetTownsfolkByID(p.Adventurer.Relationships.Friend); err == nil {
+			t.ResidenceID = residence.SettlementID
+		}
 
 		p.PushStep(p.chooseRelationshipFriendTownsfolk2())
 	}
@@ -1318,22 +1324,25 @@ func (p *procedureCreateAdventurer) chooseRelationshipFriendTownsfolk1() *proced
 func (p *procedureCreateAdventurer) chooseRelationshipFriendTownsfolk2() *procedure.Step {
 	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
 	if !found {
-		p.service.logger.Fatal().Msgf("couldn't get chosen world from chooseWorld step")
+		p.service.logger.Error("couldn't get chosen world from chooseWorld step")
 	}
 
 	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	stepChooseHometown, found := p.GetStepByKey(keyChooseHometown)
 	if !found {
-		p.service.logger.Fatal().Msgf("couldn't get chosen hometown from chooseHometown step")
+		p.service.logger.Error("couldn't get chosen hometown from chooseHometown step")
+		panic(err)
 	}
 
 	hometown, err := world.GetSettlementByName(stepChooseHometown.Answer)
 	if err != nil {
-		p.service.logger.Fatal().Msgf("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
 	}
 
 	var choices []procedure.Choice
@@ -1357,93 +1366,466 @@ func (p *procedureCreateAdventurer) chooseRelationshipFriendTownsfolk2() *proced
 			return
 		}
 
-		p.Relationships.FriendTownsfolk.Skills = append(p.Relationships.FriendTownsfolk.Skills, *skill)
+		if t, err := world.GetTownsfolkByID(p.Adventurer.Relationships.Friend); err == nil {
+			t.Skills = append(t.Skills, *skill)
+		}
 
-		p.PushStep(p.chooseRelationshipParents())
+		p.PushStep(p.chooseRelationshipFriendLastSeen())
 	}
 
 	return step
 }
 
 func (p *procedureCreateAdventurer) chooseRelationshipFriendAdventurer1() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		p.service.logger.Error("couldn't get chosen world from chooseWorld step")
+		panic("couldn't get chosen world from chooseWorld step")
+	}
+
+	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	var choices []procedure.Choice
+	for _, stock := range p.service.records.Stocks() {
+		choices = append(choices, procedure.Choice{
+			Name:        stock.String(),
+			Description: stock.Description,
+		})
+	}
+
 	step := &procedure.Step{
-		Key:    keyChooseRelationshipFriendAdventurer,
-		Prompt: "Decide if your friend is townsfolk or an adventurer. Write your friend’s name on your character sheet.",
-		Choices: []procedure.Choice{
-			{Name: "Townsfolk", Description: "If your friend is town-bound, choose in which settlement they live and choose a profession from your hometown’s skill list for them."},
-			{Name: "Adventurer", Description: "If an adventurer, choose their class and specialty for them. Their level is equal to yours, leveling up as you do. Determine the last place you saw your friend."},
-		},
+		Key:     keyChooseRelationshipFriendAdventurer1,
+		Prompt:  "What is your friend's stock?",
+		Choices: choices,
 	}
 
 	step.OnComplete = func() {
-		// You can define the next step or action here.
+		stock, err := p.service.records.GetStockByName(step.Answer)
+		if err != nil {
+			step.Reset()
+			return
+		}
+
+		if friend, err := world.GetAdventurerByID(p.Adventurer.Relationships.Friend); err == nil {
+			friend.Stock.Name = stock.String()
+			friend.Stock.ChosenLevelBenefits = []string{stock.LevelBenefits[0][0].Name}
+		}
+
+		p.PushStep(p.chooseRelationshipFriendAdventurer2())
 	}
 
 	return step
 }
 
 func (p *procedureCreateAdventurer) chooseRelationshipFriendAdventurer2() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		p.service.logger.Error("couldn't get chosen world from chooseWorld step")
+		panic("couldn't get chosen world from chooseWorld step")
+	}
+
+	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	var choices []procedure.Choice
+
+	for _, skill := range p.service.records.Skills() {
+		switch strings.ToLower(skill.Name) {
+		case "cartographer", "cook", "criminal", "dungeoneer", "haggler",
+			"healer", "hunter", "manipulator", "pathfinder", "persuader",
+			"orator", "rider", "sapper", "scavenger", "scout", "survivalist":
+			choices = append(choices, procedure.Choice{
+				Name:        skill.Name,
+				Description: skill.Description,
+			})
+		}
+	}
+
 	step := &procedure.Step{
-		Key:    keyChooseRelationshipFriendAdventurer,
-		Prompt: "Decide if your friend is townsfolk or an adventurer. Write your friend’s name on your character sheet.",
-		Choices: []procedure.Choice{
-			{Name: "Townsfolk", Description: "If your friend is town-bound, choose in which settlement they live and choose a profession from your hometown’s skill list for them."},
-			{Name: "Adventurer", Description: "If an adventurer, choose their class and specialty for them. Their level is equal to yours, leveling up as you do. Determine the last place you saw your friend."},
-		},
+		Key:     keyChooseRelationshipFriendAdventurer2,
+		Prompt:  "What is your friend's specialty?",
+		Choices: choices,
 	}
 
 	step.OnComplete = func() {
-		// You can define the next step or action here.
+		record, errGet := p.service.records.GetSkillByName(step.Answer)
+		if errGet != nil {
+			step.Reset()
+			return
+		}
+
+		if friend, err := world.GetAdventurerByID(p.Adventurer.Relationships.Friend); err == nil {
+			if existing, found := friend.Skills[record.Name]; found {
+				existing.Level++
+			} else {
+				friend.Skills[record.Name] = &models.AdventurerSkill{
+					RecordKey: record.Name,
+					Level:     2,
+				}
+			}
+		}
+
+		p.PushStep(p.chooseRelationshipFriendLastSeen())
 	}
 
 	return step
 }
 
-func (p *procedureCreateAdventurer) chooseRelationshipFriendAdventurer3() *procedure.Step {
+func (p *procedureCreateAdventurer) chooseRelationshipFriendLastSeen() *procedure.Step {
+	// HOMETOWN
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		return nil
+	}
+
+	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	var choices []procedure.Choice
+
+	for _, settlement := range w.Settlements {
+		choices = append(choices, procedure.Choice{
+			Name:        settlement.Name,
+			Description: settlement.Description(),
+		})
+	}
+
 	step := &procedure.Step{
-		Key:    keyChooseRelationshipFriendAdventurer,
-		Prompt: "Decide if your friend is townsfolk or an adventurer. Write your friend’s name on your character sheet.",
-		Choices: []procedure.Choice{
-			{Name: "Townsfolk", Description: "If your friend is town-bound, choose in which settlement they live and choose a profession from your hometown’s skill list for them."},
-			{Name: "Adventurer", Description: "If an adventurer, choose their class and specialty for them. Their level is equal to yours, leveling up as you do. Determine the last place you saw your friend."},
-		},
+		Key:     keyChooseRelationshipFriendLastSeen,
+		Prompt:  "Where was the last place you saw your friend?",
+		Choices: choices,
 	}
 
 	step.OnComplete = func() {
-		// You can define the next step or action here.
+		if friend, err := w.GetAdventurerByID(p.Adventurer.Relationships.Friend); err == nil {
+			note := fmt.Sprintf("Last saw my friend %s in the settlement of %s", friend.Name, step.Answer)
+			p.Adventurer.Relationships.Anecdotes = append(p.Adventurer.Relationships.Anecdotes, note)
+
+			note = fmt.Sprintf("Last saw my friend %s in the settlement of %s", p.Adventurer.Name, step.Answer)
+			friend.Relationships.Anecdotes = append(p.Adventurer.Relationships.Anecdotes, note)
+		}
+
+		if friend, err := w.GetTownsfolkByID(p.Adventurer.Relationships.Friend); err == nil {
+			note := fmt.Sprintf("Last saw my friend %s in the settlement of %s", friend.Name, step.Answer)
+			p.Adventurer.Relationships.Anecdotes = append(p.Adventurer.Relationships.Anecdotes, note)
+
+			note = fmt.Sprintf("Last saw my friend %s in the settlement of %s", p.Adventurer.Name, step.Answer)
+			friend.Relationships[p.Adventurer.ID] = note
+		}
+
+		p.PushStep(p.chooseRelationshipParents1())
 	}
 
 	return step
 }
 
-func (p *procedureCreateAdventurer) chooseRelationshipFriendAdventurerLastSeen() *procedure.Step {
-	step := &procedure.Step{
-		Key:    keyChooseRelationshipFriendAdventurerLastSeen,
-		Prompt: "Decide if your friend is townsfolk or an adventurer. Write your friend’s name on your character sheet.",
-		Choices: []procedure.Choice{
-			{Name: "Townsfolk", Description: "If your friend is town-bound, choose in which settlement they live and choose a profession from your hometown’s skill list for them."},
-			{Name: "Adventurer", Description: "If an adventurer, choose their class and specialty for them. Their level is equal to yours, leveling up as you do. Determine the last place you saw your friend."},
-		},
+func (p *procedureCreateAdventurer) chooseRelationshipParents1() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		return nil
 	}
 
-	step.OnComplete = func() {
-		// You can define the next step or action here.
+	stepHometown, found := p.GetStepByKey(keyChooseHometown)
+	if !found {
+		return nil
 	}
 
-	return step
-}
+	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
 
-func (p *procedureCreateAdventurer) chooseRelationshipParents() *procedure.Step {
+	hometown, err := world.GetSettlementByName(stepHometown.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
 	step := &procedure.Step{
-		Key:    keyChooseRelationshipParents,
+		Key:    keyChooseRelationshipParents1,
 		Prompt: "Do you have parents you can stomach talking to or are you an orphan?",
 		Choices: []procedure.Choice{
-			{Name: "Parents", Description: "If you have parents, add +1 Circles. Note your family name or parents’ names on your character sheet. Choose a trade for your parents from your hometown’s skill list."},
-			{Name: "Orphan", Description: "If you’re an orphan, you have a keepsake from your parents that is worn around your neck or on one hand (worn/neck or worn/hand). Describe its sentimental value. It is worth 1D of treasure. Put it in your inventory."},
+			{Name: "Parents", Description: "If you have parents, add +1 Circles."},
+			{Name: "Orphan", Description: "You are an orphan."},
 		},
 	}
 
 	step.OnComplete = func() {
+		switch step.Answer {
+		case "Parents":
+			p.Adventurer.Abilities.Town.Circles++
+			parent1, parent2 := hometown.NewTownsfolk(), hometown.NewTownsfolk()
+
+			parent1.WorldID = world.WorldID
+			parent1.HometownID = hometown.SettlementID
+			parent1.ResidenceID = hometown.SettlementID
+			parent1.Relationships[p.Adventurer.ID] = "Child"
+
+			parent2.WorldID = world.WorldID
+			parent2.HometownID = hometown.SettlementID
+			parent2.ResidenceID = hometown.SettlementID
+			parent2.Relationships[p.Adventurer.ID] = "Child"
+
+			p.Adventurer.Relationships.Parents = []uuid.UUID{
+				parent1.TownsfolkID,
+				parent2.TownsfolkID,
+			}
+
+			p.PushStep(p.chooseRelationshipParentsFamilyName())
+		case "Orphan":
+			p.PushStep(p.chooseRelationshipOrphanKeepsake1())
+		default:
+			step.Reset()
+			return
+		}
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipParentsFamilyName() *procedure.Step {
+	step := &procedure.Step{
+		Key:             keyChooseRelationshipParentsFamilyName,
+		Prompt:          "What is your family name?",
+		Default:         p.service.GenerateLastName(),
+		ValidatorRegex:  `^\w+$`,
+		ValidatorPrompt: "last name is required",
+	}
+
+	step.OnComplete = func() {
+		p.PushStep(p.chooseRelationshipParentsName1())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipParentsName1() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		return nil
+	}
+
+	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	stepFamilyName, found := p.GetStepByKey(keyChooseRelationshipParentsFamilyName)
+	if !found {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), keyChooseRelationshipParentsName1)
+		panic(err)
+	}
+
+	step := &procedure.Step{
+		Key:             keyChooseRelationshipParentsName1,
+		Prompt:          "What is your first parents name?",
+		Default:         p.service.GenerateFirstName(),
+		ValidatorRegex:  `^\w+$`,
+		ValidatorPrompt: "first name is required",
+	}
+
+	step.OnComplete = func() {
+		parent1, err := world.GetTownsfolkByID(p.Adventurer.Relationships.Parents[0])
+		if err != nil {
+			return
+		}
+
+		parent1.Name = fmt.Sprintf("%s %s", step.Answer, stepFamilyName.Answer)
+		p.PushStep(p.chooseRelationshipParentsName2())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipParentsName2() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		return nil
+	}
+
+	world, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	stepFamilyName, found := p.GetStepByKey(keyChooseRelationshipParentsFamilyName)
+	if !found {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), keyChooseRelationshipParentsName2)
+		panic(err)
+	}
+
+	step := &procedure.Step{
+		Key:             keyChooseRelationshipParentsName2,
+		Prompt:          "What is your second parents name?",
+		Default:         p.service.GenerateFirstName(),
+		ValidatorRegex:  `^\w+$`,
+		ValidatorPrompt: "first name is required",
+	}
+
+	step.OnComplete = func() {
+		parent2, err := world.GetTownsfolkByID(p.Adventurer.Relationships.Parents[1])
+		if err != nil {
+			return
+		}
+
+		parent2.Name = fmt.Sprintf("%s %s", step.Answer, stepFamilyName.Answer)
+		p.PushStep(p.chooseRelationshipParentsTrade())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipParentsTrade() *procedure.Step {
+	stepChooseWorld, found := p.GetStepByKey(keyChooseWorld)
+	if !found {
+		return nil
+	}
+
+	stepHometown, found := p.GetStepByKey(keyChooseHometown)
+	if !found {
+		return nil
+	}
+
+	w, err := p.service.worlds.GetWorldByName(stepChooseWorld.Answer)
+	if err != nil {
+		p.service.logger.Error("Creating adventurer, Step %d: %v", p.StepIndex(), err)
+		panic(err)
+	}
+
+	hometown := w.Settlements[0]
+	for _, settlement := range w.Settlements {
+		if stepHometown.Answer == settlement.Name {
+			hometown = settlement
+			break
+		}
+	}
+
+	var choices []procedure.Choice
+
+	for _, skill := range hometown.Culture.Skills {
+		choices = append(choices, procedure.Choice{
+			Name:        skill.Name,
+			Description: skill.Description,
+		})
+	}
+
+	step := &procedure.Step{
+		Key:     keyChooseRelationshipParentsTrade,
+		Prompt:  "What is your parents' trade?",
+		Choices: choices,
+	}
+
+	step.OnComplete = func() {
+		skill, err := p.service.records.GetSkillByName(step.Answer)
+		if err != nil {
+			step.Reset()
+			return
+		}
+
+		for _, parentID := range p.Adventurer.Relationships.Parents {
+			if parent, err := w.GetTownsfolkByID(parentID); err == nil {
+				parent.Skills = append(parent.Skills, *skill)
+			}
+		}
+
+		p.PushStep(p.chooseRelationshipEnemy())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipOrphanKeepsake1() *procedure.Step {
+	step := &procedure.Step{
+		Key:    keyChooseRelationshipOrphanKeepsake1,
+		Prompt: "You have a keepsake from your parents that is worn around your neck or on one hand. Where is it worn?",
+		Choices: []procedure.Choice{
+			{
+				Name:        "Neck",
+				Description: "You wear the keepsake on your neck.",
+			},
+			{
+				Name:        "Hand",
+				Description: "You wear the keepsake on your hand.",
+			},
+		},
+	}
+
+	step.OnComplete = func() {
+		p.PushStep(p.chooseRelationshipOrphanKeepsake2())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipOrphanKeepsake2() *procedure.Step {
+	stepKeepsake1, found := p.GetStepByKey(keyChooseRelationshipOrphanKeepsake1)
+	if !found {
+		return nil
+	}
+
+	prompt := fmt.Sprintf("What is the keepsake you wear on your %s?", stepKeepsake1.Answer)
+
+	step := &procedure.Step{
+		Key:            keyChooseRelationshipOrphanKeepsake2,
+		Prompt:         prompt,
+		ValidatorRegex: `^\w+( \w+)*$`,
+	}
+
+	step.OnComplete = func() {
+		p.PushStep(p.chooseRelationshipOrphanKeepsake3())
+	}
+
+	return step
+}
+
+func (p *procedureCreateAdventurer) chooseRelationshipOrphanKeepsake3() *procedure.Step {
+	stepKeepsake1, found := p.GetStepByKey(keyChooseRelationshipOrphanKeepsake1)
+	if !found {
+		return nil
+	}
+
+	stepKeepsake2, found := p.GetStepByKey(keyChooseRelationshipOrphanKeepsake2)
+	if !found {
+		return nil
+	}
+
+	prompt := fmt.Sprintf("describe the sentimental value of the keepsake %q you wear on your %s", stepKeepsake2.Answer, stepKeepsake1.Answer)
+
+	step := &procedure.Step{
+		Key:            keyChooseRelationshipOrphanKeepsake3,
+		Prompt:         prompt,
+		ValidatorRegex: `^\w+( \w+)*$`,
+	}
+
+	step.OnComplete = func() {
+		keepsake := models.NewItem()
+		keepsake.Name = stepKeepsake2.Answer
+		keepsake.Description = step.Answer
+		keepsake.SetLocation(p.Adventurer.ID)
+
+		switch stepKeepsake1.Answer {
+		case "Hand":
+			p.Adventurer.Inventory.Worn.HandRight = keepsake
+		case "Neck":
+			p.Adventurer.Inventory.Worn.Neck = keepsake
+		default:
+			step.Reset()
+			return
+		}
+
 		p.PushStep(p.chooseRelationshipMentor())
 	}
 

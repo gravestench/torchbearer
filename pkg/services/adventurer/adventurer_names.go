@@ -5,6 +5,14 @@ import (
 	"math/rand"
 )
 
+func (s *Service) GenerateFirstName() string {
+	return firstName[rand.Intn(len(firstName))]
+}
+
+func (s *Service) GenerateLastName() string {
+	return lastName[rand.Intn(len(lastName))]
+}
+
 func (s *Service) GenerateAdventurerName(withTitle, withEpithet bool) string {
 	first := firstName[rand.Intn(len(firstName))]
 	last := lastName[rand.Intn(len(lastName))]

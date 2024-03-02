@@ -1,7 +1,7 @@
 package webServer
 
 import (
-	"github.com/gravestench/runtime/pkg"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
 	"torchbearer/pkg/services/webRouter"
@@ -19,8 +19,8 @@ func (s *Service) DependenciesResolved() bool {
 	return true
 }
 
-func (s *Service) ResolveDependencies(runtime pkg.IsRuntime) {
-	for _, other := range runtime.Services() {
+func (s *Service) ResolveDependencies(services []servicemesh.Service) {
+	for _, other := range services {
 		if router, ok := other.(webRouter.Dependency); ok {
 			if router.RouteRoot() != nil {
 				s.router = router

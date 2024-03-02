@@ -18,6 +18,7 @@ type Step struct {
 	ShouldSkip      func() bool
 	OnComplete      func()
 	isComplete      bool
+	LastError       error
 }
 
 type Choice struct {
@@ -39,6 +40,7 @@ func (s *Step) Complete() error {
 }
 
 func (s *Step) Reset() {
+	s.LastError = s.Validate()
 	s.Answer = ""
 	s.isComplete = false
 }

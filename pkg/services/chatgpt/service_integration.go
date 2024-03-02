@@ -2,7 +2,7 @@ package chatgpt
 
 import (
 	"github.com/ayush6624/go-chatgpt"
-	"github.com/gravestench/runtime"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
 )
@@ -10,9 +10,9 @@ import (
 type Dependency = ChatGptApi
 
 type ChatGptApi interface {
-	runtime.Service
-	runtime.HasLogger
-	runtime.HasDependencies
+	servicemesh.Service
+	servicemesh.HasLogger
+	servicemesh.HasDependencies
 	config.HasDefaultConfig
 	Ask(prompt, question string) (*chatgpt.ChatResponse, error)
 }

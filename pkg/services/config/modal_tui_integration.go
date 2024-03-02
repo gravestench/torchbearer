@@ -26,7 +26,7 @@ func (m *tui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m *tui) View() string {
 	list := make([][]string, 0)
 
-	for _, service := range m.rt.Services() {
+	for _, service := range m.mesh.Services() {
 		if candidate, ok := service.(HasConfig); ok {
 			name := service.Name()
 			path := filepath.Join(m.ConfigDirectory(), candidate.ConfigFileName())

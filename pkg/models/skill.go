@@ -1,6 +1,6 @@
 package models
 
-type Record struct {
+type SkillRecord struct {
 	Name          string
 	Description   string
 	BeginnersLuck string

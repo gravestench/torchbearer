@@ -1,23 +1,12 @@
 package world
 
 import (
-	"fmt"
 	"slices"
 
 	"github.com/google/uuid"
 
 	"torchbearer/pkg/models"
 )
-
-func (w *World) GetSettlementByName(name string) (*models.Settlement, error) {
-	for _, settlement := range w.Settlements {
-		if settlement.Name == name {
-			return settlement, nil
-		}
-	}
-
-	return nil, fmt.Errorf("settlement %q not found", name)
-}
 
 // when initially creating a new world, we need to create settlements
 func (w *World) generateNewWorldSettlements() {
@@ -38,7 +27,8 @@ func (w *World) generateNewWorldSettlements() {
 		models.SettlementWizardsTower,
 	} {
 		settlement := &models.Settlement{
-			UUID: uuid.New(),
+			WorldID:      w.WorldID,
+			SettlementID: uuid.New(),
 		}
 
 		settlement.Name = w.generateNewSettlementName()
@@ -130,8 +120,8 @@ func (w *World) generateNewSettlementTraits(t models.SettlementType) (result []m
 	return result
 }
 
-func (w *World) generateNewSettlementSkills(t models.SettlementType) (result []models.Record) {
-	skills := make([]models.Record, 0)
+func (w *World) generateNewSettlementSkills(t models.SettlementType) (result []models.SkillRecord) {
+	skills := make([]models.SkillRecord, 0)
 
 	switch t {
 	case models.SettlementElfhome:

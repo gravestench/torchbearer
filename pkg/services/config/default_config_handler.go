@@ -3,10 +3,10 @@ package config
 import (
 	"fmt"
 
-	"github.com/gravestench/runtime"
+	"github.com/gravestench/servicemesh"
 )
 
-func (s *Service) initConfigForServiceCandidate(candidate runtime.S) error {
+func (s *Service) initConfigForServiceCandidate(candidate servicemesh.Service) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -50,7 +50,7 @@ func (s *Service) initConfigForServiceCandidate(candidate runtime.S) error {
 		}
 	}
 
-	s.log.Info().Msgf("config file for %q service can be found at: %v", name, s.GetFilePath(target.ConfigFileName()))
+	s.log.Info("config file ready", "candidate", name, "path", s.GetFilePath(target.ConfigFileName()))
 
 	return s.saveConfigUnsafe(cfgPath)
 }

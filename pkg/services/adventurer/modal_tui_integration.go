@@ -37,7 +37,7 @@ const (
 )
 
 func (s *Service) ModalTui() (name string, model tea.Model) {
-	return s.Name(), &tui{Service: s}
+	return "Adventurers", &tui{Service: s}
 }
 
 type tui struct {

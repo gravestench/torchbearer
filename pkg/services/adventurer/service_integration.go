@@ -1,6 +1,8 @@
 package adventurer
 
 import (
+	"github.com/google/uuid"
+
 	"torchbearer/pkg/models"
 )
 
@@ -13,4 +15,6 @@ type AdventurerManager interface {
 	NewAdventurer() *models.Adventurer
 	AddAdventurer(*models.Adventurer) error
 	RemoveAdventurer(name string) error
+	GetAdventurerByName(name string) (*models.Adventurer, error)
+	GetAdventurerByID(id uuid.UUID) (*models.Adventurer, error)
 }

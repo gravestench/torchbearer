@@ -1,22 +1,24 @@
 package webRouter
 
 import (
+	"log/slog"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog"
-
-	"github.com/gravestench/runtime"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/config"
-	"torchbearer/pkg/services/webRouter/middleware/static_assets"
 )
 
 type Service struct {
-	log        *zerolog.Logger
+	mesh servicemesh.Mesh
+	log  *slog.Logger
+
 	cfgManager config.Dependency
 
 	root *gin.Engine
+	api  *gin.RouterGroup
+	auth []gin.HandlerFunc // gathered from other services
 
 	boundServices map[string]*struct{} // holds 0-size entries
 
@@ -27,21 +29,21 @@ type Service struct {
 	reloadDebounce time.Time
 }
 
-func (s *Service) BindLogger(l *zerolog.Logger) {
-	s.log = l
-}
-
-func (s *Service) Logger() *zerolog.Logger {
-	return s.log
-}
-
-func (s *Service) Init(rt runtime.R) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
+	s.mesh = mesh
 	gin.SetMode("release")
-	rt.Add(&static_assets.Middleware{})
-	s.root = gin.New()
-	go s.beginDynamicRouteBinding(rt)
+
+	go s.beginDynamicRouteBinding(s.mesh)
 }
 
 func (s *Service) Name() string {
 	return "Web Router"
+}
+
+func (s *Service) SetLogger(l *slog.Logger) {
+	s.log = l
+}
+
+func (s *Service) Logger() *slog.Logger {
+	return s.log
 }

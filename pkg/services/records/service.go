@@ -2,24 +2,24 @@ package records
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gravestench/runtime"
-	"github.com/rs/zerolog"
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/models"
 	"torchbearer/pkg/services/config"
 )
 
 type Service struct {
-	logger     *zerolog.Logger
+	logger     *slog.Logger
 	cfgManager config.Dependency
 	SkillRecords
 	StockRecords
 	TraitRecords
 	WisesRecords
-	ready bool
+	loaded bool
 }
 
 func (s *Service) Slug() string {
@@ -32,7 +32,7 @@ func (s *Service) InitRoutes(group *gin.RouterGroup) {
 	})
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 	s.SkillRecords = make(SkillRecords)
 	s.StockRecords = make(StockRecords)
 	s.TraitRecords = make(TraitRecords)
@@ -40,22 +40,22 @@ func (s *Service) Init(rt runtime.Runtime) {
 
 	s.initConfigFiles()
 
-	s.ready = true
+	s.loaded = true
 }
 
 func (s *Service) Name() string {
 	return "Records"
 }
 
-func (s *Service) Ready() bool {
-	return s.ready
+func (s *Service) RecordsLoaded() bool {
+	return s.loaded
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }
 
@@ -63,7 +63,7 @@ func (s *Service) Skills() SkillRecords {
 	return s.SkillRecords
 }
 
-func (s *Service) GetSkillByName(name string) (*models.Record, error) {
+func (s *Service) GetSkillByName(name string) (*models.SkillRecord, error) {
 	skill, found := s.SkillRecords[name]
 	if !found {
 		return nil, fmt.Errorf("skill not found")

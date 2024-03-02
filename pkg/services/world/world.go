@@ -3,7 +3,6 @@ package world
 import (
 	"fmt"
 	"math/rand"
-	"time"
 
 	"github.com/google/uuid"
 
@@ -11,7 +10,7 @@ import (
 )
 
 type World struct {
-	UUID        uuid.UUID
+	WorldID     uuid.UUID
 	Name        string
 	Seed        int64
 	AsciiMap    string
@@ -24,72 +23,50 @@ type World struct {
 	*Service `json:"-"`
 }
 
-func (s *Service) NewWorld(name string) (*World, error) {
-	if existing, _ := s.GetWorldByName(name); existing != nil {
-		return nil, fmt.Errorf("world with name %q already exists", name)
+func (w *World) GetSettlementByName(name string) (*models.Settlement, error) {
+	for _, settlement := range w.Settlements {
+		if settlement.Name == name {
+			return settlement, nil
+		}
 	}
 
-	w := &World{
-		Service: s,
-		UUID:    uuid.New(),
-		Name:    name,
-		Seed:    time.Now().UnixNano(),
-	}
-
-	w.rng = rand.New(rand.NewSource(w.Seed))
-
-	w.generateNewWorldSettlements()
-	w.generateAsciiMap()
-
-	return w, nil
+	return nil, fmt.Errorf("settlement with name %q not found", name)
 }
 
-func (s *Service) AddWorld(w World) {
-	var exists bool
-
-	for _, existing := range s.Worlds {
-		if existing.UUID == w.UUID {
-			exists = true
-			break
+func (w *World) GetSettlementByID(id uuid.UUID) (*models.Settlement, error) {
+	for _, settlement := range w.Settlements {
+		if settlement.SettlementID == id {
+			return settlement, nil
 		}
 	}
 
-	if exists {
-		return
-	}
-
-	s.Worlds = append(s.Worlds, &w)
+	return nil, fmt.Errorf("settlement with ID %q not found", id.String())
 }
 
-func (s *Service) GetWorldByName(name string) (*World, error) {
-	for _, world := range s.Worlds {
-		if world.Name != name {
-			continue
-		}
-
-		return world, nil
-	}
-
-	return nil, fmt.Errorf("world %q not found", name)
+func (w *World) GetAdventurerByName(name string) (*models.Adventurer, error) {
+	return w.adventurer.GetAdventurerByName(name)
 }
 
-func (s *Service) DeleteWorld(name string) error {
-	for idx, world := range s.Worlds {
-		if world.Name != name {
-			continue
+func (w *World) GetAdventurerByID(id uuid.UUID) (*models.Adventurer, error) {
+	return w.adventurer.GetAdventurerByID(id)
+}
+
+func (w *World) GetTownsfolkByName(name string) (*models.Townsfolk, error) {
+	for _, settlement := range w.Settlements {
+		if t, err := settlement.GetTownsfolkByName(name); err == nil {
+			return t, nil
 		}
-
-		s.Worlds = append(s.Worlds[:idx], s.Worlds[idx+1:]...)
-
-		if cfg, err := s.cfgManager.GetConfigByFileName(s.ConfigFileName()); err != nil {
-			return fmt.Errorf("getting world config: %v", err)
-		} else {
-			cfg.Delete(world.UUID.String())
-			s.cfgManager.SaveConfigWithFileName(s.ConfigFileName())
-		}
-
-		return nil
 	}
 
-	return fmt.Errorf("world %q not found", name)
+	return nil, fmt.Errorf("townsfolk with name %q not found", name)
+}
+
+func (w *World) GetTownsfolkByID(id uuid.UUID) (*models.Townsfolk, error) {
+	for _, settlement := range w.Settlements {
+		if t, err := settlement.GetTownsfolkByID(id); err == nil {
+			return t, nil
+		}
+	}
+
+	return nil, fmt.Errorf("townsfolk with ID %q not found", id.String())
 }

@@ -7,7 +7,7 @@ import (
 type Dependency = RecordsManager
 
 type RecordsManager interface {
-	Ready() bool
+	RecordsLoaded() bool
 	skillRecordManager
 	stockRecordManager
 	traitRecordManager
@@ -16,7 +16,7 @@ type RecordsManager interface {
 
 type skillRecordManager interface {
 	Skills() SkillRecords
-	GetSkillByName(name string) (*models.Record, error)
+	GetSkillByName(name string) (*models.SkillRecord, error)
 }
 
 type stockRecordManager interface {

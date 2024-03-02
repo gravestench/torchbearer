@@ -1,28 +1,29 @@
 package session
 
 import (
-	"github.com/gravestench/runtime"
-	"github.com/rs/zerolog"
+	"log/slog"
+
+	"github.com/gravestench/servicemesh"
 
 	"torchbearer/pkg/services/phase"
 )
 
 type Service struct {
-	logger *zerolog.Logger
+	logger *slog.Logger
 	phase  phase.PhaseManager
 }
 
-func (s *Service) Init(rt runtime.Runtime) {
+func (s *Service) Init(mesh servicemesh.Mesh) {
 }
 
 func (s *Service) Name() string {
 	return "Session"
 }
 
-func (s *Service) BindLogger(logger *zerolog.Logger) {
+func (s *Service) SetLogger(logger *slog.Logger) {
 	s.logger = logger
 }
 
-func (s *Service) Logger() *zerolog.Logger {
+func (s *Service) Logger() *slog.Logger {
 	return s.logger
 }

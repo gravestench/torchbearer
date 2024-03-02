@@ -32,14 +32,15 @@ func (s *Service) LoadConfig(config *config.Config) {
 
 		id, err := uuid.Parse(worldUUID)
 		if err != nil {
-			s.logger.Error().Msgf("parsing uuid: %v", err)
+			s.logger.Error("parsing uuid", "error", err)
 			continue
 		}
 
 		w := World{
-			UUID: id,
-			Name: g.GetString(keyWorldName),
-			Seed: int64(g.GetFloat64(keyWorldSeed)),
+			WorldID: id,
+			Service: s,
+			Name:    g.GetString(keyWorldName),
+			Seed:    int64(g.GetFloat64(keyWorldSeed)),
 		}
 
 		w.rng = rand.New(rand.NewSource(w.Seed))
@@ -49,12 +50,20 @@ func (s *Service) LoadConfig(config *config.Config) {
 		settlements := make([]*models.Settlement, 0)
 
 		if err = json.Unmarshal(settlementsData, &settlements); err != nil {
-			s.logger.Error().Msgf("unmarshalling settlement data: %v", err)
+			s.logger.Error("unmarshalling settlement data", "error", err)
 			continue
 		}
 
 		for _, settlement := range settlements {
 			settlement.Seed = w.Seed + models.GenerateSeedFromString(settlement.Name)
+
+			if len(settlement.Culture.Skills) < 3 {
+				settlement.Culture.Skills = w.generateNewSettlementSkills(settlement.Type)
+			}
+
+			if len(settlement.Culture.Traits) < 3 {
+				settlement.Culture.Traits = w.generateNewSettlementTraits(settlement.Type)
+			}
 		}
 
 		w.Settlements = settlements
@@ -66,7 +75,7 @@ func (s *Service) LoadConfig(config *config.Config) {
 func (s *Service) LoadWorlds() error {
 	cfg, err := s.cfgManager.GetConfigByFileName(s.ConfigFileName())
 	if err != nil {
-		return fmt.Errorf("getting world config: %v", err)
+		return fmt.Errorf("getting world config", "error", err)
 	}
 
 	s.LoadConfig(cfg)
@@ -77,11 +86,11 @@ func (s *Service) LoadWorlds() error {
 func (s *Service) SaveWorlds() error {
 	cfg, err := s.cfgManager.GetConfigByFileName(s.ConfigFileName())
 	if err != nil {
-		return fmt.Errorf("getting world config: %v", err)
+		return fmt.Errorf("getting world config", "error", err)
 	}
 
 	for _, world := range s.Worlds {
-		g := cfg.Group(world.UUID.String())
+		g := cfg.Group(world.WorldID.String())
 		g.Set(keyWorldName, world.Name)
 		g.Set(keyWorldSeed, world.Seed)
 		g.Set(keyWorldName, world.Name)
@@ -91,7 +100,7 @@ func (s *Service) SaveWorlds() error {
 
 	err = s.cfgManager.SaveConfigWithFileName(s.ConfigFileName())
 	if err != nil {
-		return fmt.Errorf("saving world config: %v", err)
+		return fmt.Errorf("saving world config", "error", err)
 	}
 
 	return nil

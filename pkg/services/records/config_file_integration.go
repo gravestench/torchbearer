@@ -40,7 +40,8 @@ func (s *Service) initSkillRecordsConfig() {
 	if err != nil {
 		cfg, err = s.cfgManager.CreateConfigWithFileName(cfgFileNameSkillRecords)
 		if err != nil {
-			s.logger.Fatal().Msgf("creating skill records config file: %v", err)
+			s.logger.Error("creating skill records config file", "error", err)
+			panic(err)
 		}
 	}
 
@@ -60,12 +61,13 @@ func (s *Service) initSkillRecordsConfig() {
 
 	// save the config (ensure to overwrite changes to the defaults)
 	if err = s.cfgManager.SaveConfigWithFileName(cfgFileNameSkillRecords); err != nil {
-		s.logger.Fatal().Msgf("saving config %q: %v", cfgFileNameSkillRecords, err)
+		s.logger.Error("saving config", "filename", cfgFileNameSkillRecords, "error", err)
+		panic(err)
 	}
 
 	// iterate through the config, with defaults and any custom stuff
 	for _, name := range cfg.GroupKeys() {
-		var skill models.Record
+		var skill models.SkillRecord
 
 		g := cfg.Group(name)
 
@@ -97,7 +99,8 @@ func (s *Service) initStockRecordConfig() {
 	if err != nil {
 		cfg, err = s.cfgManager.CreateConfigWithFileName(cfgFileNameStockRecords)
 		if err != nil {
-			s.logger.Fatal().Msgf("creating stock records config file: %v", err)
+			s.logger.Error("creating stock records config file", "error", err)
+			panic(err)
 		}
 	}
 
@@ -115,7 +118,8 @@ func (s *Service) initStockRecordConfig() {
 
 	// save the config (ensure to overwrite changes to the defaults)
 	if err = s.cfgManager.SaveConfigWithFileName(cfgFileNameStockRecords); err != nil {
-		s.logger.Fatal().Msgf("saving config %q: %v", cfgFileNameStockRecords, err)
+		s.logger.Error("saving config", "filename", cfgFileNameStockRecords, "error", err)
+		panic(err)
 	}
 
 	// iterate through the config, with defaults and any custom stuff
@@ -146,7 +150,8 @@ func (s *Service) initTraitRecordConfig() {
 	if err != nil {
 		cfg, err = s.cfgManager.CreateConfigWithFileName(cfgFileNameTraitRecords)
 		if err != nil {
-			s.logger.Fatal().Msgf("creating stock records config file: %v", err)
+			s.logger.Error("creating stock records config file", "error", err)
+			panic(err)
 		}
 	}
 
@@ -159,7 +164,8 @@ func (s *Service) initTraitRecordConfig() {
 
 	// save the config (ensure to overwrite changes to the defaults)
 	if err = s.cfgManager.SaveConfigWithFileName(cfgFileNameTraitRecords); err != nil {
-		s.logger.Fatal().Msgf("saving config %q: %v", cfgFileNameTraitRecords, err)
+		s.logger.Error("saving config", "filename", cfgFileNameTraitRecords, "error", err)
+		panic(err)
 	}
 
 	// iterate through the config, with defaults and any custom stuff
@@ -186,7 +192,8 @@ func (s *Service) initWisesRecordConfig() {
 	if err != nil {
 		cfg, err = s.cfgManager.CreateConfigWithFileName(cfgFileNameWiseRecords)
 		if err != nil {
-			s.logger.Fatal().Msgf("creating stock records config file: %v", err)
+			s.logger.Error("creating stock records config file", "error", err)
+			panic(err)
 		}
 	}
 
@@ -199,7 +206,8 @@ func (s *Service) initWisesRecordConfig() {
 
 	// save the config (ensure to overwrite changes to the defaults)
 	if err = s.cfgManager.SaveConfigWithFileName(cfgFileNameWiseRecords); err != nil {
-		s.logger.Fatal().Msgf("saving config %q: %v", cfgFileNameWiseRecords, err)
+		s.logger.Error("saving config", "filename", cfgFileNameWiseRecords, "error", err)
+		panic(err)
 	}
 
 	// iterate through the config, with defaults and any custom stuff
