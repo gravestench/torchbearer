@@ -7,14 +7,12 @@ import (
 
 	"torchbearer/pkg/services/account"
 	"torchbearer/pkg/services/adventurer"
-	"torchbearer/pkg/services/chatgpt"
 	"torchbearer/pkg/services/config"
 	"torchbearer/pkg/services/dice"
 	"torchbearer/pkg/services/email"
 	"torchbearer/pkg/services/phase"
 	"torchbearer/pkg/services/records"
 	"torchbearer/pkg/services/session"
-	"torchbearer/pkg/services/tui"
 	"torchbearer/pkg/services/webRouter"
 	"torchbearer/pkg/services/webServer"
 	"torchbearer/pkg/services/world"
@@ -30,7 +28,7 @@ func main() {
 
 	// generic plumbing services, used by most other services
 	rt.Add(&config.Service{RootDirectory: configDirectory})
-	rt.Add(&tui.Service{})
+	//rt.Add(&tui.Service{})
 
 	// account/identity management services
 	rt.Add(&account.Service{})
@@ -41,7 +39,7 @@ func main() {
 	rt.Add(&webServer.Service{})
 
 	// external API integration services
-	rt.Add(&chatgpt.Service{})
+	//rt.Add(&chatgpt.Service{})
 
 	// torchbearer game services
 	rt.Add(&records.Service{})

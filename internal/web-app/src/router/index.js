@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from "../components/HelloWorld.vue";
+import HomePage from "../components/HomePage.vue";
 import LoginForm from "../components/LoginForm.vue";
 
 const routes = [
@@ -9,7 +9,7 @@ const routes = [
   },
   {
     path: '/',
-    component: HelloWorld,
+    component: HomePage,
     meta: { requiresAuth: true },
   },
   {
