@@ -23,7 +23,7 @@ const (
 	colorPlant    = "#8b8"
 )
 
-func makeRow(a *models.Adventurer) table.Row {
+func makeTableRowFromAdventurer(a *models.Adventurer) table.Row {
 	return table.NewRow(table.RowData{
 		columnKeyName:  a.Name,
 		columnKeyLevel: len(a.Stock.ChosenLevelBenefits),
@@ -88,14 +88,17 @@ func (m *tui) updateList(msg tea.Msg) (tea.Model, tea.Cmd) {
 	rows := make([]table.Row, 0)
 
 	for _, adv := range m.Service.adventurers {
-		rows = append(rows, makeRow(adv))
+		rows = append(rows, makeTableRowFromAdventurer(adv))
 	}
 
-	m.tuiList = m.tuiList.WithColumns([]table.Column{
-		table.NewColumn(columnKeyName, "Name", 20),
-		table.NewColumn(columnKeyLevel, "Level", 20),
-		table.NewColumn(columnKeyAlive, "Alive?", 20),
-	}).WithRows(rows).
+	m.tuiList = m.tuiList.
+		//so many params!
+		WithColumns([]table.Column{
+			table.NewColumn(columnKeyName, "Name", 20),
+			table.NewColumn(columnKeyLevel, "Level", 20),
+			table.NewColumn(columnKeyAlive, "Alive?", 20),
+		}).
+		WithRows(rows).
 		WithHeaderVisibility(true).
 		WithFooterVisibility(true).
 		SelectableRows(true).

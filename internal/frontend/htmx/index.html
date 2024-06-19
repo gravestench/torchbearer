@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World with htmx</title>
+    <script src="https://unpkg.com/htmx.org@1.4.1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/account/authenticated', {
+                method: 'GET',
+                credentials: 'same-origin'
+            })
+                .then(response => {
+                    if (response.status !== 200) {
+                        window.location.href = '/login.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking authentication:', error);
+                    window.location.href = '/login.html';
+                });
+        });
+    </script>
+</head>
+<body>
+<h1>Hello World with htmx</h1>
+<button hx-get="/hello" hx-trigger="click" hx-target="#hello-container">Click Me</button>
+<div id="hello-container"></div>
+</body>
+</html>

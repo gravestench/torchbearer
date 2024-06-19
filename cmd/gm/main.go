@@ -24,7 +24,7 @@ const (
 
 func main() {
 	rt := servicemesh.New("Game Master")
-	rt.SetLogLevel(slog.LevelInfo)
+	rt.SetLogLevel(slog.LevelDebug)
 
 	// generic plumbing services, used by most other services
 	rt.Add(&config.Service{RootDirectory: configDirectory})

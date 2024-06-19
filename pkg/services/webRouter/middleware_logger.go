@@ -49,11 +49,6 @@ func Logger(serName string, l *slog.Logger) gin.HandlerFunc {
 			MsgStr:     msg,
 		}
 
-		defer func() {
-			e := recover()
-			l.Error("recovering", "error", e)
-		}()
-
 		c.Next()
 
 		logSwitch(cData)

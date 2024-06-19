@@ -3,6 +3,7 @@ package account
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,7 @@ func (s *Service) Slug() string {
 
 func (s *Service) InitRoutes(group *gin.RouterGroup) {
 	group.POST("login", s.handleLogin)
+	group.POST("logout", s.handleLogout)
 	group.GET("authenticated", s.handleCheckAuthenticated)
 	group.POST("create", s.handleCreate)
 	group.POST("recover", s.handleSendOneTimePassCode)
@@ -60,6 +62,7 @@ func (s *Service) handleLogin(c *gin.Context) {
 	if account.Username == data.Username && data.Password == account.Password {
 		session := sessions.Default(c)
 		session.Set("authenticated", true)
+		session.Set("uuid", account.ID.String())
 		session.Save()
 		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 	} else {
@@ -67,8 +70,63 @@ func (s *Service) handleLogin(c *gin.Context) {
 	}
 }
 
+func (s *Service) handleLogout(c *gin.Context) {
+	type payload struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	data := &payload{}
+	c.Bind(data)
+
+	account, err := s.GetAccountByName(data.Username)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"message": fmt.Sprintf("login failed: %v", err)})
+		return
+	}
+
+	// Validate username and password (you should use a database here)
+	if account.Username == data.Username && data.Password == account.Password {
+		session := sessions.Default(c)
+		session.Set("authenticated", false)
+		session.Delete("uuid")
+		session.Save()
+		c.JSON(http.StatusOK, gin.H{"message": "Logout successful"})
+	} else {
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "Logout failed"})
+	}
+}
+
 func (s *Service) handleCheckAuthenticated(c *gin.Context) {
+	const sessionTimeout = time.Second * 5
+
 	session := sessions.Default(c)
+
+	if s.accountTimeout == nil {
+		s.accountTimeout = make(map[string]time.Time)
+	}
+
+	if session.Get("uuid") == nil {
+		c.Status(http.StatusUnauthorized)
+		return
+	}
+
+	id := session.Get("uuid").(string)
+
+	if id == "" {
+		c.Status(http.StatusUnauthorized)
+		return
+	}
+
+	if lastTime, found := s.accountTimeout[id]; found {
+		if time.Since(lastTime) > sessionTimeout {
+			session.Delete("authenticated")
+			c.JSON(http.StatusUnauthorized, gin.H{"message": "Session timed out"})
+			return
+		}
+	}
+
+	s.accountTimeout[id] = time.Now()
 
 	auth := session.Get("authenticated")
 	switch v := auth.(type) {

@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from "../components/HomePage.vue";
 import LoginForm from "../components/LoginForm.vue";
+import SignUpForm from "@/components/SignUp.vue";
 
 const routes = [
   {
     path: '/login',
     component: LoginForm,
+  },
+  {
+    path: '/signup',
+    component: SignUpForm,
   },
   {
     path: '/',
@@ -25,8 +30,6 @@ async function checkAuthentication() {
   try {
     // Send a GET request to the /account/authenticated endpoint using the fetch API
     const response = await fetch(`/api/account/authenticated`);
-    console.log(response)
-
     // Check the HTTP status code
     if (response.ok) {
       // User is authenticated
@@ -39,7 +42,7 @@ async function checkAuthentication() {
     }
   } catch (error) {
     // An error occurred (e.g., network error)
-    console.log("error authenticated")
+    console.log("error, not authenticated")
     console.error('Authentication check failed:', error);
     return false;
   }

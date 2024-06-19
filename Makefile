@@ -1,8 +1,11 @@
 run: frontend backend
 	build/gm
 
-frontend:
-	bash ./scripts/build_frontend.sh
+frontend-vue:
+	bash ./scripts/build_frontend_vue.sh
+
+frontend-htmx:
+	bash ./scripts/build_frontend_htmx.sh
 
 backend:
 	mkdir -p build

@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,9 +28,9 @@ func (s *Service) staticWebUIHandler(c *gin.Context) {
 	_, baseFilename := path.Split(file)
 	ext := filepath.Ext(baseFilename)
 
-	if file == "" || ext == "" {
-		file = "index.html"
-	}
+	//if file == "" || ext == "" {
+	//	file = "index.html"
+	//}
 
 	data, readErr := s.ReadFile(file)
 	if readErr != nil {
@@ -58,29 +59,31 @@ func getMIMEFromFileExtension(ext string) (result string) {
 //go:embed static
 var embedded embed.FS
 
-const prefix = "static"
+func reformat(p string) string {
+	const prefix = "static"
 
-func prefixed(s string) string {
 	for {
-		if len(s) < 2 {
+		if len(p) < 2 {
 			break
 		}
 
-		if string(s[0]) == "/" {
-			s = s[1:]
+		if string(p[0]) == "/" {
+			p = p[1:]
 			continue
 		}
 
 		break
 	}
 
-	return fmt.Sprintf("%s/%s", prefix, s)
+	if !strings.HasPrefix(p, "api/") {
+		p = fmt.Sprintf("%s/%s", prefix, p)
+	}
+
+	return p
 }
 
 func (s *Service) Open(name string) (fs.File, error) {
-	name = prefixed(name)
-
-	f, err := embedded.Open(name)
+	f, err := embedded.Open(reformat(name))
 	if err != nil {
 		err = fmt.Errorf("opening file in embedded filesystem: %v", err)
 	}
@@ -89,9 +92,7 @@ func (s *Service) Open(name string) (fs.File, error) {
 }
 
 func (s *Service) ReadDir(name string) ([]fs.DirEntry, error) {
-	name = prefixed(name)
-
-	list, err := embedded.ReadDir(name)
+	list, err := embedded.ReadDir(reformat(name))
 	if err != nil {
 		err = fmt.Errorf("reading directory in embedded filesystem: %v", err)
 	}
@@ -100,9 +101,7 @@ func (s *Service) ReadDir(name string) ([]fs.DirEntry, error) {
 }
 
 func (s *Service) ReadFile(name string) ([]byte, error) {
-	name = prefixed(name)
-
-	data, err := embedded.ReadFile(name)
+	data, err := embedded.ReadFile(reformat(name))
 	if err != nil {
 		err = fmt.Errorf("reading file from embedded filesystem: %v", err)
 	}

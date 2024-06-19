@@ -3,6 +3,7 @@ package account
 import (
 	"fmt"
 	"log/slog"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/gravestench/servicemesh"
@@ -21,6 +22,7 @@ type Service struct {
 	router                   webRouter.Dependency
 	accounts                 map[uuid.UUID]Account
 	accountRecoveryPasscodes map[uuid.UUID]string // one-time passcodes
+	accountTimeout           map[string]time.Time
 	tui                      struct {
 		mode   int
 		list   tuiListAccounts
@@ -36,6 +38,8 @@ func (s *Service) Name() string {
 }
 
 func (s *Service) Init(mesh servicemesh.Mesh) {
+	s.accountTimeout = make(map[string]time.Time)
+
 	if err := s.LoadAccounts(); err != nil {
 		s.logger.Error("error", fmt.Sprintf("loading accounts: %v", err))
 		panic(err)
